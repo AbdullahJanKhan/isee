@@ -1,0 +1,81 @@
+.boxcard {
+  position: relative;
+  margin: 10px 0px;
+  max-width: 291px;
+  background: white;
+  padding: 30px;
+  text-align: center;
+  border-radius: 20px;
+  border: 2px solid rgb(211, 211, 211);
+  margin-bottom: 20px;
+  margin-right: 1em;
+}
+
+.boxcard::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  top: 40px;
+  right: 0;
+  left: 0;
+  mix-blend-mode: color-burn;
+  filter: blur(30px);
+  opacity: 0.5;
+}
+
+.blood {
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+  color: #282c34;
+  font-weight: bolder;
+}
+
+.imag {
+  width: 19em;
+}
+
+img {
+  width: 8%;
+  height: 8%;
+}
+
+.line {
+  border: 1px solid #3474dbb2;
+  border-radius: 5px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.space-between {
+  margin-right: 1em;
+}
+.form-group {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: fit-content;
+}
+
+.dir_row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.img_icon {
+  width: 25px;
+  height: 25px;
+  margin: 0px 0px 0px 20px;
+  /* align-items: center; */
+}

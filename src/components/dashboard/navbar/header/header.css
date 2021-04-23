@@ -1,0 +1,54 @@
+.header_main {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    background-color: #282c34;
+    box-sizing: content-box;
+    position: fixed;
+}
+
+.header {
+    width: 40%;
+    color: aliceblue;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
+
+.side_header {
+    width: 45%;
+    color: aliceblue;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: right;
+    padding: 5px;
+}
+
+.logout {
+    border: 2px solid aliceblue;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 25px;
+    align-self: center;
+}
+
+.title {
+    font-size: medium;
+    align-self: center;
+}
+
+.burger {
+    width: 25px;
+    height: 25px;
+    align-self: center;
+    margin-right: 15px
+}
+
+.account{
+    width: 35px;
+    height: 35px;
+    align-self: center;
+}
