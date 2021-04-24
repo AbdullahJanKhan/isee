@@ -1,8 +1,9 @@
 .main_body {
-    border: 1px solid #616773;
+    border: 2px solid #616773;
     margin: auto;
     padding: 20px;
     width: 85%;
+    border-radius: 15px;
 }
 
 .container {
@@ -43,4 +44,28 @@
     width: 25px;
     height: 25px;
     margin-left: 10px;
+}
+
+.classify {
+    width: max-content;
+    padding: 5px;
+    border: 1px solid #616773;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: auto;
+}
+
+.classify:hover {
+    cursor: pointer;
+}
+
+.image_upload {
+    width: 30%;
+    padding: 0px 20px 20px 20px;
+    /* align-items: center; */
+}
+
+.scan {
+    width: 128px;
+    height: 128px;
 }

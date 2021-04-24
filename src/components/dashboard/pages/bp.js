@@ -7,7 +7,11 @@ import * as RiIcon from 'react-icons/ri'
 export default function BP() {
     return (
         <div className='main_body'>
-            <div className='box'>
+            <div className='container'>
+                <p >Manage Blood Glucose Levels</p>
+                <hr />
+            </div>
+            <div className='box container'>
                 <div className='dir_row'>
                     <p>BLOOD PRESSURE</p>
                     <FaIcon.FaHeartbeat className='icon' />
