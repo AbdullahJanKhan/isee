@@ -1,6 +1,7 @@
 import React from 'react';
 import image from "../../asset/login.svg";
 import "./style.css";
+import { Link } from 'react-router-dom';
 export class Login extends React.Component {
     render() {
         return (
@@ -8,7 +9,7 @@ export class Login extends React.Component {
                 <div className="boxlog">
                     <div className="login">
                         Login
-                </div>
+                    </div>
                     <div className="img">
                         <img src={image} alt='Sample'></img>
                     </div>
@@ -26,9 +27,11 @@ export class Login extends React.Component {
                         </div>
                     </div>
                     <div className="footer">
-                        <button type="button" className="btn">
-                            Login
-                    </button>
+                        <Link to='/home'>
+                            <button type="button" className="btn">
+                                Login
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>

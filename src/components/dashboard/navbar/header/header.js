@@ -8,14 +8,13 @@ function Header(props) {
         <div className='header_main'>
             <div className='header'>
                 <FaIcons.FaBars onClick={props.showSidebar} className='burger' />
-                <p className='title'>ISEE | DR DETECTION SYSTEM</p>
+                <p className='title'>ISEE | DR CLASSIFIER</p>
             </div>
             <div className='side_header'>
-                <RiIcons.RiAccountCircleLine className='account' />
-                <p className='logout'>LOGOUT</p>
+                <RiIcons.RiAccountCircleLine className='account' onClick={props.accSidebar}/>
             </div>
         </div>
-    );
+    );  
 }
 
 export default Header;

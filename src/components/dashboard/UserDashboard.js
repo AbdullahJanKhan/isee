@@ -1,40 +1,64 @@
 import React from "react";
 import "./User.css";
 import NavBar from './navbar/Navbar'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Home from './pages/home';
 import Report from './pages/reports';
 import Doctor from './pages/searchdoc';
 import Chat from './pages/messages';
 import BP from './pages/bp'
 import BG from './pages/bg'
-
+import { Login, Register } from '../login/index'
 function UserDashboard() {
     return (
         <div>
             <Router>
                 <div>
-                    <NavBar />
-                </div>
-                <div style={{ padding: "90px 0px 10px 0px" }}>
                     <Switch>
+                        <Route exact path='/'>
+                            <Redirect to='/login' />
+                        </Route>
+                        <Route path='/login'>
+                            <Login />
+                        </Route>
+                        <Route path='/register'>
+                            <Register />
+                        </Route>
                         <Route path='/home'>
-                            <Home />
+                            <div>
+                                <NavBar />
+                                <Home />
+                            </div>
                         </Route>
                         <Route path='/reports'>
-                            <Report />
+                            <div>
+                                <NavBar />
+                                <Report />
+                            </div>
                         </Route>
                         <Route path='/searchDoc'>
-                            <Doctor />
+                            <div>
+                                <NavBar />
+                                <Doctor />
+                            </div>
                         </Route>
                         <Route path='/messages'>
-                            <Chat />
+                            <div>
+                                <NavBar />
+                                <Chat />
+                            </div>
                         </Route>
                         <Route path='/managebp'>
-                            <BP />
+                            <div>
+                                <NavBar />
+                                <BP />
+                            </div>
                         </Route>
                         <Route path='/managebg'>
-                            <BG />
+                            <div>
+                                <NavBar />
+                                <BG />
+                            </div>
                         </Route>
                     </Switch>
                 </div>

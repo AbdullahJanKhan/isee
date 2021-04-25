@@ -1,3 +1,7 @@
+.avoid_header {
+    padding: 90px 0px 10px 0px;
+}
+
 .main_body {
     border: 2px solid #616773;
     margin: auto;
@@ -47,22 +51,27 @@
 }
 
 .classify {
-    width: max-content;
+    width: 120px;
     padding: 5px;
     border: 1px solid #616773;
     border-radius: 5px;
-    font-size: 16px;
-    margin: auto;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
 }
 
-.classify:hover {
-    cursor: pointer;
+.form_img {
+    padding: 0px 20px;
+}
+
+input[type='file'] {
+    display: none;
 }
 
 .image_upload {
-    width: 30%;
-    padding: 0px 20px 20px 20px;
-    /* align-items: center; */
+    width: 50%;
+    padding: 20px;
+    align-items: flex-start;
 }
 
 .scan {

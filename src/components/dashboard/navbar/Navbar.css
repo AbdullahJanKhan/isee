@@ -70,3 +70,20 @@
 .span_sidebar {
     margin-left: 10px;
 }
+
+.nav-menu-right {
+    background-color: #282c34;
+    width: 150px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    transition: 850ms;
+}
+
+.nav-menu-right.active {
+    right: 0;
+    transition: 350ms;
+}
