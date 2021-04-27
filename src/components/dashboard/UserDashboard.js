@@ -1,18 +1,19 @@
 import React from "react";
 import "./User.css";
 import NavBar from './navbar/Navbar'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import Home from './pages/home';
 import Report from './pages/reports';
 import Doctor from './pages/searchdoc';
 import Chat from './pages/messages';
-import BP from './pages/bp'
-import BG from './pages/bg'
-import { Login, Register } from '../login/index'
+import BP from './pages/bp';
+import BG from './pages/bg';
+import { Login, Register } from '../login/index';
 function UserDashboard() {
+    var history = useHistory();
     return (
         <div>
-            <Router>
+            <Router histroy={history}>
                 <div>
                     <Switch>
                         <Route exact path='/'>
