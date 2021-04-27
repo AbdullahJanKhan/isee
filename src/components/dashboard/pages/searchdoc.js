@@ -2,6 +2,8 @@ import React from 'react';
 
 export default function Doctor() {
     return (
-        <h2>Search Doctors</h2>
+        <div className='avoid_header'>
+            <h2>Search Doctor</h2>
+        </div>
     );
 }

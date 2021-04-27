@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './styles.css'
 import noImg from '../../../asset/no_img.png';
-
+import axios from 'axios';
 
 export default function Home() {
     const [name, setName] = useState('Abdullah Jan Khan');
@@ -9,14 +9,21 @@ export default function Home() {
     const [scan, setScan] = useState(null)
     const updateName = () => setName('Abdullah Bin Tahir');
     const handleClick = event => {
-        // event.preventDefault();
         fileInput.current.click();
     };
     const handleChange = event => {
         event.preventDefault();
-        console.log(fileInput.current.files[0])
-        console.log(URL.createObjectURL(fileInput.current.files[0]))
-        setScan(URL.createObjectURL(fileInput.current.files[0]))
+        const data = new FormData();
+        data.append('file', fileInput.current.files[0]);
+        axios.post('http://localhost:5000/users/upload', data, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            }
+        })
+            .then((res) => {
+                setScan(res.data)
+            });
     }
 
     return (
@@ -30,12 +37,12 @@ export default function Home() {
                     <div className='imageUpload'>
                         <p>DR CLASSIFIER</p>
                         <form className='form_img'>
-                            <img src={scan ? scan : noImg} alt='Eye Scan' className='scan' />
+                            <img src={scan ? `http://localhost:5000/${scan.filename}` : noImg} alt='Eye Scan' className='scan' />
                             <br />
                             <p className='classify' onClick={handleClick}>
                                 Upload Image
                         </p>
-                            <input id='scan' type='file' ref={fileInput} onChange={handleChange} />
+                            <input id='scan' type='file' ref={fileInput} accept="image/*" onChange={handleChange} />
                             <p className='classify'>Classify Disease</p>
                         </form>
                     </div>

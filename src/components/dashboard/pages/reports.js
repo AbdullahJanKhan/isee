@@ -2,6 +2,8 @@ import React from 'react';
 
 export default function Report() {
     return (
-        <h2>DR Reports</h2>
+        <div className='avoid_header'>
+            <h2>DR Reports</h2>
+        </div>
     );
 }

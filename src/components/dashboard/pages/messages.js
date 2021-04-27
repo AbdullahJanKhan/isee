@@ -2,6 +2,8 @@ import React from 'react';
 
 export default function Chat() {
     return (
-        <h2>Chat</h2>
+        <div className='avoid_header'>
+            <h2>Chat</h2>
+        </div>
     );
 }

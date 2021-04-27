@@ -3,14 +3,16 @@
 }
 
 .main_body {
-    border: 2px solid #616773;
+    border: 1px solid #616773;
     margin: auto;
     padding: 20px;
     width: 85%;
     border-radius: 15px;
+    /* box-shadow: 5px 5px 100px rgba(97, 103, 115, 0.3); */
 }
 
 .container {
+    width: 100%;
     font-size: 24px;
     font-weight: bold;
     color: #282c34;
@@ -69,7 +71,7 @@ input[type='file'] {
 }
 
 .image_upload {
-    width: 50%;
+    width: 20%;
     padding: 20px;
     align-items: flex-start;
 }
