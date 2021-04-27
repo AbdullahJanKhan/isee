@@ -1,6 +1,5 @@
 var express = require('express');
 var multer = require('multer');
-const bodyParser = require('body-parser');
 var User = require('../models/user');
 var passport = require('passport');
 var authenticate = require('../authenticate');
