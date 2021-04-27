@@ -46,7 +46,7 @@ export function Register() {
                 <div className="Register">
                     Register
                     </div>
-                <div className="img">
+                <div>
                     <img src={image} alt='Sample'></img>
                 </div>
                 <hr className="line"></hr>
@@ -54,7 +54,7 @@ export function Register() {
                     <div className="form">
                         <div className="inrow">
                             <div className="form-group" style={{ marginRight: "30px" }}>
-                                <label htmlFor="firstname">First name</label>
+                                <label htmlFor="firstname" className="placeholder">First name</label>
                                 <input type="text"
                                     name="firstname"
                                     placeholder="First Name"
@@ -64,7 +64,7 @@ export function Register() {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="lastname">Last name</label>
+                                <label htmlFor="lastname" className="placeholder">Last name</label>
                                 <input type="text"
                                     name="lastname"
                                     placeholder="Last Name"
@@ -76,7 +76,7 @@ export function Register() {
                         </div>
                         <div className="inrow">
                             <div className="form-group" style={{ marginRight: "30px" }}>
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="email" className="placeholder">Email</label>
                                 <input type="text"
                                     name="email"
                                     placeholder="Email"
@@ -86,7 +86,7 @@ export function Register() {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="dob">Date Of Birth</label>
+                                <label htmlFor="dob" className="placeholder">Date Of Birth</label>
                                 <input type="date"
                                     name="Dob"
                                     style={{ color: "rgba(128,128,128, 1.0)" }}
@@ -96,7 +96,7 @@ export function Register() {
                         </div>
                         <div className="inrow">
                             <div className="form-group" style={{ marginRight: "30px" }}>
-                                <label htmlFor="password">Password</label>
+                                <label htmlFor="password" className="placeholder">Password</label>
                                 <input type="password"
                                     name="password"
                                     placeholder="Password"
@@ -106,7 +106,7 @@ export function Register() {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="confirm password">Confirm Password</label>
+                                <label htmlFor="confirm password" className="placeholder">Confirm Password</label>
                                 <input type="password"
                                     name="password"
                                     placeholder="Confirm password"
