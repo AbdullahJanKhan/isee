@@ -4,7 +4,9 @@ import UserDashboard from './components/dashboard/UserDashboard'
 
 function App() {
   return (
-    <div><UserDashboard /></div>
+    <div>
+      <UserDashboard />
+    </div>
   );
 }
 // added some changes

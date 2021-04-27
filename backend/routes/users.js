@@ -37,9 +37,9 @@ router.post('/register', (req, res, next) => {
     req.body.password, (err, user) => {
       if (err) {
         console.log(err)
-        res.statusCode = 500;
+        res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json({ err: err });
+        res.json({ success: false });
       } else {
         if (req.body.fname)
           user.fname = req.body.fname;

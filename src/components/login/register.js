@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import image from "../../asset/login.svg";
 import "./style.css";
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 export function Register() {
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
@@ -10,11 +10,12 @@ export function Register() {
     const [date, setDate] = useState(null);
     const [password, setPassword] = useState('');
     const [cnfpassword, setcnfPassword] = useState('');
-    const submitBtn = React.createRef();
 
-    const [success, setSuccess] = useState(false);
+    const [fail, setFail] = useState(<p></p>);
 
-    const handelSubmit = (event) => {
+    var history = useHistory();
+
+    const handelSubmit = () => {
         if (password !== cnfpassword) {
             alert('Password Not Macthing');
             return;
@@ -36,7 +37,15 @@ export function Register() {
         })
             .then((res) => {
                 console.log(res);
-                setSuccess(res.data.success)
+                if (res.data.success) {
+                    history.push('/login');
+                } else {
+                    setFail(<p style={{
+                        background: 'rgba(255,0,0,0.2)',
+                        border: '1px solid rgb(255,0,0)',
+                        borderRadius: '15px'
+                    }}>Email Already Registered <strong>You Can Login</strong></p>);
+                }
             });
     }
 
@@ -45,7 +54,8 @@ export function Register() {
             <div className="boxreg">
                 <div className="Register">
                     Register
-                    </div>
+                </div>
+                {fail}
                 <div className="img">
                     <img src={image} alt='Sample'></img>
                 </div>
@@ -121,11 +131,9 @@ export function Register() {
                     </div>
                 </div>
                 <div className="footer">
-                    <Link to={success ? '/home' : '/register'}>
-                        <button type="button" ref={submitBtn} className="btn" onClick={event => handelSubmit(event)}>
-                            Register
-                        </button>
-                    </Link>
+                    <button type="button" className="btn" onClick={event => handelSubmit(event)}>
+                        Register
+                    </button>
                 </div>
             </div>
         </div>
