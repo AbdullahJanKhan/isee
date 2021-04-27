@@ -10,10 +10,11 @@ export function Register() {
     const [date, setDate] = useState(null);
     const [password, setPassword] = useState('');
     const [cnfpassword, setcnfPassword] = useState('');
+    const submitBtn = React.createRef();
 
     const [success, setSuccess] = useState(false);
 
-    const handelSubmit = () => {
+    const handelSubmit = (event) => {
         if (password !== cnfpassword) {
             alert('Password Not Macthing');
             return;
@@ -121,7 +122,7 @@ export function Register() {
                 </div>
                 <div className="footer">
                     <Link to={success ? '/home' : '/register'}>
-                        <button type="button" className="btn" onClick={handelSubmit}>
+                        <button type="button" ref={submitBtn} className="btn" onClick={event => handelSubmit(event)}>
                             Register
                         </button>
                     </Link>
