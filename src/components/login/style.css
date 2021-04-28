@@ -31,15 +31,10 @@
     flex-direction: column;
 }
 
-.image {
-    width: 19em;
-}
 
-img {
-    width: 82%;
-    height: 82%;
+img{
+    max-width:65%;
 }
-
 .line {
     border: 1px solid #3474dbb2;
     border-radius: 5px
@@ -78,7 +73,7 @@ input {
 
 input:hover {
     background-color: #ffffff;
-    box-shadow: 0px 0px 14px 0.3px #0e81ce96;
+    box-shadow: 0px 0px 14px 0.3px #3474dbb2;
 }
 
 .isnotsame{
@@ -109,10 +104,6 @@ button:focus {
     outline: none;
 }
 
-button:hover {
-    background-color: #0e81ce96;
-}
-
 .boxreg {
     position: relative;
     margin: 100px auto;
@@ -133,7 +124,7 @@ button:hover {
     top: 40px;
     right: 0;
     left: 0;
-    background: #7f7f7f;
+    background: #3474dbb2;
     mix-blend-mode: color-burn;
     filter: blur(30px);
     opacity: 0.5;
@@ -142,7 +133,7 @@ button:hover {
 .boxlog {
     position: relative;
     margin: 100px auto;
-    max-width: 307px;
+    max-width: 310px;
     background: white;
     padding: 30px;
     text-align: center;
@@ -159,8 +150,12 @@ button:hover {
     top: 40px;
     right: 0;
     left: 0;
-    background: #7f7f7f;
+    background: #3474dbb2;
     mix-blend-mode: color-burn;
     filter: blur(30px);
     opacity: 0.5;
+}
+.placeholder{
+    color:#3474dbb2;
+    font-weight:bold
 }

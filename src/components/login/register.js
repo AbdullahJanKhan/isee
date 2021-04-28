@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import image from "../../asset/login.svg";
 import "./style.css";
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useHistory } from 'react-router';
 export function Register() {
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
@@ -10,12 +10,11 @@ export function Register() {
     const [date, setDate] = useState(null);
     const [password, setPassword] = useState('');
     const [cnfpassword, setcnfPassword] = useState('');
+    const submitBtn = React.createRef();
 
-    const [fail, setFail] = useState(<p></p>);
+    const [success, setSuccess] = useState(false);
 
-    var history = useHistory();
-
-    const handelSubmit = () => {
+    const handelSubmit = (event) => {
         if (password !== cnfpassword) {
             alert('Password Not Macthing');
             return;
@@ -37,15 +36,7 @@ export function Register() {
         })
             .then((res) => {
                 console.log(res);
-                if (res.data.success) {
-                    history.push('/login');
-                } else {
-                    setFail(<p style={{
-                        background: 'rgba(255,0,0,0.2)',
-                        border: '1px solid rgb(255,0,0)',
-                        borderRadius: '15px'
-                    }}>Email Already Registered <strong>You Can Login</strong></p>);
-                }
+                setSuccess(res.data.success)
             });
     }
 
@@ -54,9 +45,8 @@ export function Register() {
             <div className="boxreg">
                 <div className="Register">
                     Register
-                </div>
-                {fail}
-                <div className="img">
+                    </div>
+                <div>
                     <img src={image} alt='Sample'></img>
                 </div>
                 <hr className="line"></hr>
@@ -64,7 +54,7 @@ export function Register() {
                     <div className="form">
                         <div className="inrow">
                             <div className="form-group" style={{ marginRight: "30px" }}>
-                                <label htmlFor="firstname">First name</label>
+                                <label htmlFor="firstname" className="placeholder">First name</label>
                                 <input type="text"
                                     name="firstname"
                                     placeholder="First Name"
@@ -74,7 +64,7 @@ export function Register() {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="lastname">Last name</label>
+                                <label htmlFor="lastname" className="placeholder">Last name</label>
                                 <input type="text"
                                     name="lastname"
                                     placeholder="Last Name"
@@ -86,7 +76,7 @@ export function Register() {
                         </div>
                         <div className="inrow">
                             <div className="form-group" style={{ marginRight: "30px" }}>
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="email" className="placeholder">Email</label>
                                 <input type="text"
                                     name="email"
                                     placeholder="Email"
@@ -96,7 +86,7 @@ export function Register() {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="dob">Date Of Birth</label>
+                                <label htmlFor="dob" className="placeholder">Date Of Birth</label>
                                 <input type="date"
                                     name="Dob"
                                     style={{ color: "rgba(128,128,128, 1.0)" }}
@@ -106,7 +96,7 @@ export function Register() {
                         </div>
                         <div className="inrow">
                             <div className="form-group" style={{ marginRight: "30px" }}>
-                                <label htmlFor="password">Password</label>
+                                <label htmlFor="password" className="placeholder">Password</label>
                                 <input type="password"
                                     name="password"
                                     placeholder="Password"
@@ -116,7 +106,7 @@ export function Register() {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="confirm password">Confirm Password</label>
+                                <label htmlFor="confirm password" className="placeholder">Confirm Password</label>
                                 <input type="password"
                                     name="password"
                                     placeholder="Confirm password"
@@ -131,9 +121,11 @@ export function Register() {
                     </div>
                 </div>
                 <div className="footer">
-                    <button type="button" className="btn" onClick={event => handelSubmit(event)}>
-                        Register
-                    </button>
+                    <Link to={success ? '/home' : '/register'}>
+                        <button type="button" ref={submitBtn} className="btn" onClick={event => handelSubmit(event)}>
+                            Register
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

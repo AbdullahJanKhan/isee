@@ -10,18 +10,18 @@ export function Login() {
                 <div className="login">
                     Login
                     </div>
-                <div className="img">
+                <div>
                     <img src={image} alt='Sample'></img>
                 </div>
                 <hr className="line"></hr>
                 <div className="content">
                     <div className="form">
                         <div className="form-group">
-                            <label htmlFor="username">Username</label>
+                            <label htmlFor="username" className="placeholder">Username</label>
                             <input type="text" name="username" placeholder="username" />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password" className="placeholder">Password</label>
                             <input type="password" name="password" placeholder="password" />
                         </div>
                     </div>
