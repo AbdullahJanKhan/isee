@@ -10,7 +10,6 @@ export function Register() {
     const [date, setDate] = useState(null);
     const [password, setPassword] = useState('');
     const [cnfpassword, setcnfPassword] = useState('');
-    const submitBtn = React.createRef();
 
     const [success, setSuccess] = useState(false);
 
@@ -122,7 +121,7 @@ export function Register() {
                 </div>
                 <div className="footer">
                     <Link to={success ? '/home' : '/register'}>
-                        <button type="button" ref={submitBtn} className="btn" onClick={event => handelSubmit(event)}>
+                        <button type="button" className="btn" onClick={event => handelSubmit(event)}>
                             Register
                         </button>
                     </Link>
