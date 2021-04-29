@@ -20,10 +20,16 @@ function UserDashboard() {
                             <Redirect to='/login' />
                         </Route>
                         <Route path='/login'>
-                            <Login />
+                            <div>
+                                <NavBar />
+                                <Login />
+                            </div>
                         </Route>
                         <Route path='/register'>
-                            <Register />
+                            <div>
+                                <NavBar />
+                                <Register />
+                            </div>
                         </Route>
                         <Route path='/home'>
                             <div>
