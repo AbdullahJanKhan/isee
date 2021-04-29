@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import image from "../../asset/login.svg";
 import "./style.css";
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 export function Register() {
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
@@ -11,7 +11,6 @@ export function Register() {
     const [password, setPassword] = useState('');
     const [cnfpassword, setcnfPassword] = useState('');
 
-    const [success, setSuccess] = useState(false);
 
     const handelSubmit = (event) => {
         if (password !== cnfpassword) {
@@ -34,8 +33,10 @@ export function Register() {
             }
         })
             .then((res) => {
-                console.log(res);
-                setSuccess(res.data.success)
+                if (res.data.success) {
+                    return <Redirect to='/login' />
+                }
+
             });
     }
 
@@ -120,11 +121,9 @@ export function Register() {
                     </div>
                 </div>
                 <div className="footer">
-                    <Link to={success ? '/home' : '/register'}>
-                        <button type="button" className="btn" onClick={event => handelSubmit(event)}>
-                            Register
-                        </button>
-                    </Link>
+                    <button type="button" className="btn" onClick={event => handelSubmit(event)}>
+                        Register
+                    </button>
                 </div>
             </div>
         </div>
