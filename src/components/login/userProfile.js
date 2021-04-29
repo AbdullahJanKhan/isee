@@ -5,9 +5,9 @@ export function UserProfile() {
 
     return (
         <div className="base-container">
-                <div className="boxreg">
+                <div className="boxup">
                     <div className="Register">
-                        Register
+                        User Profile
                     </div>
                     <div>
                         <img src={image}></img>
@@ -21,29 +21,90 @@ export function UserProfile() {
                                 <input type="text" name="firstname" placeholder="First Name" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="firstname" className="placeholder">Last name</label>
+                                <label htmlFor="Lastname" className="placeholder">Last name</label>
                                 <input type="text" name="firstname" placeholder="Last Name" />
                             </div>
+                            
                             </div>
                             <div className="inrow">
-                            <div className="form-group" style={{marginRight:"30px"}}>
-                                <label htmlFor="email" className="placeholder">Email</label>
-                                <input type="text" name="email" placeholder="Email" />
-                            </div>
+                                <div className="form-group" style={{marginRight:"30px"}}>
+                                    <label htmlFor="Lastname" className="placeholder">Gender</label>
+                                    <select className="other">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
                             <div className="form-group">
                                 <label htmlFor="dob" className="placeholder">Date Of Birth</label>
-                                <input type="date" name="Dob" style={{color:"rgba(128,128,128, 1.0)", width:"100%", marginRight:"0.8em"}} />
+                                <input type="date" name="Dob" style={{color:"rgba(128,128,128, 1.0)"}} />
                             </div>
                             </div>
+                            <div className="subheading">
+                                <label htmlFor="email" className="change">Change Email</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr className="line"></hr>
+                    <div className="content">
+                        <div className="form">
                             <div className="inrow">
-                            <div className="form-group" style={{marginRight:"30px"}}>
-                                <label htmlFor="password" className="placeholder">Password</label>
-                                <input type="password" name="password" placeholder="Password" />
+                                <div className="form-group" style={{marginRight:"30px"}}>
+                                    <label htmlFor="email" className="placeholder">Email</label>
+                                    <div>
+                                    <input type="text" name="email" placeholder="New email" style={{marginRight:"30px"}}/>
+                                    <button type="button" className="btn">
+                                        Change
+                                    </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="confirm password" className="placeholder">Confirm Password</label>
-                                <input type="password" name="password" placeholder="Confirm password" />
+                            <div className="subheading">
+                                <label htmlFor="contact" className="change">Change Contact</label>
                             </div>
+                        </div>
+                    </div>
+                    <hr className="line"></hr>
+                    <div className="content">
+                        <div className="form">
+                            <div className="inrow">
+                                <div className="form-group" style={{marginRight:"30px"}}>
+                                    <label htmlFor="contact" className="placeholder">Contact No</label>
+                                    <div>
+                                    <input type="text" name="contact" placeholder="New contact" style={{marginRight:"30px"}}/>
+                                    <button type="button" className="btn">
+                                        Change
+                                    </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="subheading">
+                                <label htmlFor="contact" className="change">Change password</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr className="line"></hr>
+                    <div className="content">
+                        <div className="form">
+                            <div className="inrow">
+                                <div className="form-group" style={{marginRight:"30px"}}>
+                                    <label htmlFor="password" className="placeholder">Previous Password</label>
+                                    <input type="password" name="password" placeholder="Password" />
+                                </div>
+                                <div className="form-group" style={{marginRight:"30px"}}>
+                                    <label htmlFor="confirm password" className="placeholder">New Password</label>
+                                    <input type="password" name="password" placeholder="Confirm password" />
+                                </div>
+                                <div className="form-group" style={{marginRight:"30px"}}>
+                                    <label htmlFor="confirm password" className="placeholder">Confirm New Password</label>
+                                    <input type="password" name="password" placeholder="Confirm password" />
+                                    
+                                </div>
+                                <div className="form-group">
+                                    <button type="button" className="btn" style={{alignItems:'flex-end',justifyContent:'flex-end',marginTop:'9.5px'}}>
+                                        Change
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

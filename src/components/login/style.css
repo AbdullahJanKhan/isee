@@ -16,16 +16,24 @@
     font-size: 40px;
     font-family: "Open Sans", sans-serif;
     margin-bottom: 20px;
-    color: #3474dbb2;
+    color: #282c34;
 }
 
 .Register {
     font-size: 55px;
     font-family: "Open Sans", sans-serif;
     margin-bottom: 20px;
-    color: #3474dbb2;
+    color: #282c34;
 }
-
+.change {
+    font-size: 35px;
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 20px;
+    color: #282c34;
+}
+.subheading{
+    margin-bottom: 0px;
+}
 .content {
     display: flex;
     flex-direction: column;
@@ -36,7 +44,7 @@ img{
     max-width:65%;
 }
 .line {
-    border: 1px solid #3474dbb2;
+    border: 1px solid #282c34;
     border-radius: 5px
 }
 
@@ -73,7 +81,7 @@ input {
 
 input:hover {
     background-color: #ffffff;
-    box-shadow: 0px 0px 14px 0.3px #3474dbb2;
+    box-shadow: 0px 0px 14px 0.3px #282c34;
 }
 
 .isnotsame{
@@ -82,17 +90,38 @@ input:hover {
 
 input:focus {
     outline: none;
-    box-shadow: 0px 0px 12px 0.8px #3474dbb2;
+    box-shadow: 0px 0px 12px 0.8px #282c34;
+}
+.other {
+    margin-top: 6px;
+    min-width: 19.27em;
+    height: 37px;
+    padding: 0px 10px;
+    font-size: 16px;
+    font-family: "Open Sans", sans-serif;
+    background-color: #f3f3f3;
+    border: 0;
+    border-radius: 5px;
+    margin-bottom: 22px;
+}
+
+.other:hover {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 14px 0.3px #282c34;
+}
+.other:focus {
+    outline: none;
+    box-shadow: 0px 0px 12px 0.8px #282c34;
 }
 
 .footer {
     margin-top: 6px;
 }
 
-button {
+.btn {
     font-size: 20px;
     padding: 5px 15px;
-    background-color: #3474dbb2;
+    background-color: #282c34;
     color: white;
     border: 0;
     border-radius: 5px;
@@ -100,7 +129,7 @@ button {
     cursor: pointer;
 }
 
-button:focus {
+.btn:focus {
     outline: none;
 }
 
@@ -124,7 +153,7 @@ button:focus {
     top: 40px;
     right: 0;
     left: 0;
-    background: #3474dbb2;
+    background: #616773;
     mix-blend-mode: color-burn;
     filter: blur(30px);
     opacity: 0.5;
@@ -150,12 +179,37 @@ button:focus {
     top: 40px;
     right: 0;
     left: 0;
-    background: #3474dbb2;
+    background: #616773;
     mix-blend-mode: color-burn;
     filter: blur(30px);
     opacity: 0.5;
 }
 .placeholder{
-    color:#3474dbb2;
+    color:#282c34;
     font-weight:bold
+}
+.boxup {
+    position: relative;
+    margin: 100px auto;
+    max-width: 11450px;
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.boxup::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    top: 40px;
+    right: 0;
+    left: 0;
+    background: #616773;
+    mix-blend-mode: color-burn;
+    filter: blur(30px);
+    opacity: 0.5;
 }

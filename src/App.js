@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
 import UserDashboard from './components/dashboard/UserDashboard'
+import {UserProfile} from './components/login/index'
 function App() {
   return (   
     <div>
-      <UserDashboard />
+      <UserProfile />
     </div>
   );
 }
