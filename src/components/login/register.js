@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import image from "../../asset/login.svg";
 import "./style.css";
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 export function Register() {
     const [fname, setFname] = useState('');
@@ -12,7 +13,7 @@ export function Register() {
     const [cnfpassword, setcnfPassword] = useState('');
 
 
-    const handelSubmit = (event) => {
+    const handelSubmit = () => {
         if (password !== cnfpassword) {
             alert('Password Not Macthing');
             return;
@@ -121,7 +122,7 @@ export function Register() {
                     </div>
                 </div>
                 <div className="footer">
-                    <button type="button" className="btn" onClick={event => handelSubmit(event)}>
+                    <button type="button" className="btn" onClick={() => handelSubmit()}>
                         Register
                     </button>
                 </div>
