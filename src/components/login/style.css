@@ -32,7 +32,8 @@
     color: #282c34;
 }
 .subheading{
-    margin-bottom: 0px;
+    
+    text-decoration-line: 'underline'
 }
 .content {
     display: flex;
