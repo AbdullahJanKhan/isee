@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import image from "../../asset/login.svg";
 import "./style.css";
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
 export function Register() {
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
@@ -10,11 +10,9 @@ export function Register() {
     const [date, setDate] = useState(null);
     const [password, setPassword] = useState('');
     const [cnfpassword, setcnfPassword] = useState('');
-    const submitBtn = React.createRef();
+    const history = useHistory();
 
-    const [success, setSuccess] = useState(false);
-
-    const handelSubmit = (event) => {
+    const handelSubmit = () => {
         if (password !== cnfpassword) {
             alert('Password Not Macthing');
             return;
@@ -27,7 +25,6 @@ export function Register() {
             'dob': date,
             'gender': 'Male'
         }
-        console.log(data)
         axios.post('http://localhost:5000/users/register', data, {
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -35,8 +32,9 @@ export function Register() {
             }
         })
             .then((res) => {
-                console.log(res);
-                setSuccess(res.data.success)
+                if (res.data.success) {
+                    history.push('/login')
+                }
             });
     }
 
@@ -46,9 +44,6 @@ export function Register() {
                 <div className="Register">
                     Register
                     </div>
-                <div>
-                    <img src={image} alt='Sample'></img>
-                </div>
                 <hr className="line"></hr>
                 <div className="content">
                     <div className="form">
@@ -121,11 +116,9 @@ export function Register() {
                     </div>
                 </div>
                 <div className="footer">
-                    <Link to={success ? '/home' : '/register'}>
-                        <button type="button" ref={submitBtn} className="btn" onClick={event => handelSubmit(event)}>
-                            Register
-                        </button>
-                    </Link>
+                    <button type="button" className="btn" onClick={() => handelSubmit()}>
+                        Register
+                    </button>
                 </div>
             </div>
         </div>

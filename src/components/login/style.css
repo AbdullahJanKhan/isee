@@ -25,25 +25,29 @@
     margin-bottom: 20px;
     color: #282c34;
 }
+
 .change {
     font-size: 35px;
     font-family: "Open Sans", sans-serif;
     margin-bottom: 20px;
     color: #282c34;
 }
-.subheading{
-    
+
+.subheading {
+
     text-decoration-line: 'underline'
 }
+
 .content {
     display: flex;
     flex-direction: column;
 }
 
 
-img{
-    max-width:65%;
+img {
+    max-width: 65%;
 }
+
 .line {
     border: 1px solid #282c34;
     border-radius: 5px
@@ -85,7 +89,7 @@ input:hover {
     box-shadow: 0px 0px 14px 0.3px #282c34;
 }
 
-.isnotsame{
+.isnotsame {
     box-shadow: 0px 0px 14px 0.3px #FF6347;
 }
 
@@ -93,6 +97,7 @@ input:focus {
     outline: none;
     box-shadow: 0px 0px 12px 0.8px #282c34;
 }
+
 .other {
     margin-top: 6px;
     min-width: 19.27em;
@@ -110,6 +115,7 @@ input:focus {
     background-color: #ffffff;
     box-shadow: 0px 0px 14px 0.3px #282c34;
 }
+
 .other:focus {
     outline: none;
     box-shadow: 0px 0px 12px 0.8px #282c34;
@@ -135,60 +141,33 @@ input:focus {
 }
 
 .boxreg {
-    position: relative;
     margin: 100px auto;
     max-width: 645px;
     background: white;
     padding: 30px;
     text-align: center;
     border-radius: 20px;
-}
-
-.boxreg::before {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: -1;
-    height: 100%;
-    width: 100%;
-    top: 40px;
-    right: 0;
-    left: 0;
-    background: #616773;
-    mix-blend-mode: color-burn;
-    filter: blur(30px);
-    opacity: 0.5;
+    border: 1px solid #616773;
+    box-shadow: 5px 10px rgba(38, 40, 45, 0.2);
 }
 
 .boxlog {
-    position: relative;
     margin: 100px auto;
     max-width: 310px;
     background: white;
     padding: 30px;
     text-align: center;
     border-radius: 20px;
+    border: 1px solid #616773;
+    box-shadow: 5px 10px rgba(38, 40, 45, 0.2);
 }
 
-.boxlog::before {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: -1;
-    height: 100%;
-    width: 100%;
-    top: 40px;
-    right: 0;
-    left: 0;
-    background: #616773;
-    mix-blend-mode: color-burn;
-    filter: blur(30px);
-    opacity: 0.5;
+
+.placeholder {
+    color: #282c34;
+    font-weight: bold
 }
-.placeholder{
-    color:#282c34;
-    font-weight:bold
-}
+
 .boxup {
     position: relative;
     margin: 100px auto;
