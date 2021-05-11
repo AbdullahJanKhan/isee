@@ -40,16 +40,9 @@ export function UserProfile() {
                                 <input type="date" name="Dob" style={{color:"rgba(128,128,128, 1.0)"}} />
                             </div>
                             </div>
-                            <div className="subheading">
-                                <label htmlFor="email" className="change">Change Email</label>
-                            </div>
-                        </div>
-                    </div>
-                    <hr className="line"></hr>
-                    <div className="content">
-                        <div className="form">
                             <div className="inrow">
                                 <div className="form-group" style={{marginRight:"30px"}}>
+                                    <label htmlFor="email" className="change">Change Email</label>
                                     <label htmlFor="email" className="placeholder">Email</label>
                                     <div>
                                     <input type="text" name="email" placeholder="New email" style={{marginRight:"30px"}}/>
@@ -59,16 +52,10 @@ export function UserProfile() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="subheading">
-                                <label htmlFor="contact" className="change">Change Contact</label>
-                            </div>
-                        </div>
-                    </div>
-                    <hr className="line"></hr>
-                    <div className="content">
-                        <div className="form">
+                            
                             <div className="inrow">
                                 <div className="form-group" style={{marginRight:"30px"}}>
+                                    <label htmlFor="contact" className="change">Change Contact</label>
                                     <label htmlFor="contact" className="placeholder">Contact No</label>
                                     <div>
                                     <input type="text" name="contact" placeholder="New contact" style={{marginRight:"30px"}}/>
@@ -78,30 +65,23 @@ export function UserProfile() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="subheading">
-                                <label htmlFor="contact" className="change">Change password</label>
-                            </div>
-                        </div>
-                    </div>
-                    <hr className="line"></hr>
-                    <div className="content">
-                        <div className="form">
                             <div className="inrow">
                                 <div className="form-group" style={{marginRight:"30px"}}>
+                                    <label htmlFor="contact" className="change">Change password</label>
                                     <label htmlFor="password" className="placeholder">Previous Password</label>
                                     <input type="password" name="password" placeholder="Password" />
                                 </div>
-                                <div className="form-group" style={{marginRight:"30px"}}>
+                                <div className="form-group" style={{marginRight:"30px",marginTop:'60px'}}>
                                     <label htmlFor="confirm password" className="placeholder">New Password</label>
                                     <input type="password" name="password" placeholder="Confirm password" />
                                 </div>
-                                <div className="form-group" style={{marginRight:"30px"}}>
+                                <div className="form-group" style={{marginRight:"30px",marginTop:'60px'}}>
                                     <label htmlFor="confirm password" className="placeholder">Confirm New Password</label>
                                     <input type="password" name="password" placeholder="Confirm password" />
                                     
                                 </div>
                                 <div className="form-group">
-                                    <button type="button" className="btn" style={{alignItems:'flex-end',justifyContent:'flex-end',marginTop:'9.5px'}}>
+                                    <button type="button" className="btn" style={{marginTop:'69.5px'}}>
                                         Change
                                     </button>
                                 </div>
