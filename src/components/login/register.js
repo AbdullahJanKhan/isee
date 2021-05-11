@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import image from "../../asset/login.svg";
 import "./style.css";
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export function Register() {
     const [fname, setFname] = useState('');
@@ -11,7 +11,7 @@ export function Register() {
     const [date, setDate] = useState(null);
     const [password, setPassword] = useState('');
     const [cnfpassword, setcnfPassword] = useState('');
-
+    const history = useHistory();
 
     const handelSubmit = () => {
         if (password !== cnfpassword) {
@@ -26,7 +26,6 @@ export function Register() {
             'dob': date,
             'gender': 'Male'
         }
-        console.log(data)
         axios.post('http://localhost:5000/users/register', data, {
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -35,9 +34,8 @@ export function Register() {
         })
             .then((res) => {
                 if (res.data.success) {
-                    return <Redirect to='/login' />
+                    history.push('/login')
                 }
-
             });
     }
 
