@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import image from "../../asset/login.svg";
 import "./style.css";
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -45,9 +44,6 @@ export function Register() {
                 <div className="Register">
                     Register
                     </div>
-                <div>
-                    <img src={image} alt='Sample'></img>
-                </div>
                 <hr className="line"></hr>
                 <div className="content">
                     <div className="form">
