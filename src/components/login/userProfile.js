@@ -11,8 +11,8 @@ export function UserProfile() {
                 <hr className="line"></hr>
                 <div className="content">
                     <div className="form">
-                        <div className="inrow">
-                            <div className="form-group" style={{ marginRight: "30px" }}>
+                        <div className="inrow" style={{ justifyContent: 'space-evenly' }}>
+                            <div className="form-group">
                                 <label htmlFor="firstname" className="placeholder">First name</label>
                                 <input type="text" name="firstname" placeholder="First Name" />
                             </div>
