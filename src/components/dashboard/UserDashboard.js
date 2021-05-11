@@ -8,7 +8,7 @@ import Doctor from './pages/searchdoc';
 import Chat from './pages/messages';
 import BP from './pages/bp';
 import BG from './pages/bg';
-import { Login, Register } from '../login/index';
+import { Login, Register, UserProfile } from '../login/index';
 function UserDashboard() {
     var history = useHistory();
     return (
@@ -65,6 +65,12 @@ function UserDashboard() {
                             <div>
                                 <NavBar />
                                 <BG />
+                            </div>
+                        </Route>
+                        <Route path='/profile'>
+                            <div>
+                                <NavBar />
+                                <UserProfile />
                             </div>
                         </Route>
                     </Switch>

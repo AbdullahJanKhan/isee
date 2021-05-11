@@ -1,5 +1,4 @@
 import React from 'react';
-import image from "../../asset/login.svg";
 import "./style.css";
 export function UserProfile() {
 
@@ -9,9 +8,6 @@ export function UserProfile() {
                 <div className="Register">
                     User Profile
                     </div>
-                <div>
-                    <img src={image} alt='Sample' />
-                </div>
                 <hr className="line"></hr>
                 <div className="content">
                     <div className="form">
@@ -53,25 +49,6 @@ export function UserProfile() {
                                 <label htmlFor="email" className="placeholder">Email</label>
                                 <div>
                                     <input type="text" name="email" placeholder="New email" style={{ marginRight: "30px" }} />
-                                    <button type="button" className="btn">
-                                        Change
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="subheading">
-                            <label htmlFor="contact" className="change">Change Contact</label>
-                        </div>
-                    </div>
-                </div>
-                <hr className="line"></hr>
-                <div className="content">
-                    <div className="form">
-                        <div className="inrow">
-                            <div className="form-group" style={{ marginRight: "30px" }}>
-                                <label htmlFor="contact" className="placeholder">Contact No</label>
-                                <div>
-                                    <input type="text" name="contact" placeholder="New contact" style={{ marginRight: "30px" }} />
                                     <button type="button" className="btn">
                                         Change
                                     </button>
