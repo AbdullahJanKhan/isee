@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var Report = new Schema({
     _id: {
         type: mongoose.Types.ObjectId,
-        ref: 'Patient'
+        ref: 'User'
     },
     title: {
         type: String,

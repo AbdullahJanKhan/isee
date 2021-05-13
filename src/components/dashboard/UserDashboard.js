@@ -1,81 +1,55 @@
 import React from "react";
 import "./User.css";
-import NavBar from './navbar/Navbar'
-import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Report from './pages/reports';
 import Doctor from './pages/searchdoc';
 import Chat from './pages/messages';
 import BP from './pages/bp';
 import BG from './pages/bg';
-import { Login, Register, UserProfile } from '../login/index';
+import { UserProfile } from '../login/index';
 function UserDashboard() {
-    var history = useHistory();
     return (
         <div>
-            <Router histroy={history}>
-                <div>
-                    <Switch>
-                        <Route exact path='/'>
-                            <Redirect to='/login' />
-                        </Route>
-                        <Route path='/login'>
-                            <div>
-                                <NavBar />
-                                <Login />
-                            </div>
-                        </Route>
-                        <Route path='/register'>
-                            <div>
-                                <NavBar />
-                                <Register />
-                            </div>
-                        </Route>
-                        <Route path='/home'>
-                            <div>
-                                <NavBar />
-                                <Home />
-                            </div>
-                        </Route>
-                        <Route path='/reports'>
-                            <div>
-                                <NavBar />
-                                <Report />
-                            </div>
-                        </Route>
-                        <Route path='/searchDoc'>
-                            <div>
-                                <NavBar />
-                                <Doctor />
-                            </div>
-                        </Route>
-                        <Route path='/messages'>
-                            <div>
-                                <NavBar />
-                                <Chat />
-                            </div>
-                        </Route>
-                        <Route path='/managebp'>
-                            <div>
-                                <NavBar />
-                                <BP />
-                            </div>
-                        </Route>
-                        <Route path='/managebg'>
-                            <div>
-                                <NavBar />
-                                <BG />
-                            </div>
-                        </Route>
-                        <Route path='/profile'>
-                            <div>
-                                <NavBar />
-                                <UserProfile />
-                            </div>
-                        </Route>
-                    </Switch>
-                </div>
-            </Router>
+            <div>
+                <Switch>
+                    <Route path='/user/home'>
+                        <div>
+                            <Home />
+                        </div>
+                    </Route>
+                    <Route path='/user/reports'>
+                        <div>
+                            <Report />
+                        </div>
+                    </Route>
+                    <Route path='/user/searchDoc'>
+                        <div>
+                            <Doctor />
+                        </div>
+                    </Route>
+                    <Route path='/user/messages'>
+                        <div>
+                            <Chat />
+                        </div>
+                    </Route>
+                    <Route path='/user/managebp'>
+                        <div>
+                            <BP />
+                        </div>
+                    </Route>
+                    <Route path='/user/managebg'>
+                        <div>
+                            <BG />
+                        </div>
+                    </Route>
+                    <Route path='/user/profile'>
+                        <div>
+                            <UserProfile />
+                        </div>
+                    </Route>
+                </Switch>
+            </div>
         </div>
     );
 }

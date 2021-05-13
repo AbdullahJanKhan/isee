@@ -14,6 +14,12 @@ var User = new Schema({
     },
     isDoctor: {
         type: Boolean,
+    },
+    dob: {
+        type: Date,
+    },
+    city: {
+        type: String,
     }
 });
 

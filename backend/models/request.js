@@ -1,0 +1,18 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var Requests = new Schema({
+    p_id: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    },
+    d_id: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Doctor'
+    },
+    data: {
+        type: String
+    }
+});
+
+module.exports = mongoose.model('Request', Requests);

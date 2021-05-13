@@ -9,9 +9,6 @@ var Doctor = new Schema({
     pmdcid: {
         type: Date,
     },
-    city: {
-        type: String,
-    },
     isVerified: {
         type: Boolean,
         default: false,

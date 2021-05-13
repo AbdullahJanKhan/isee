@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var BP = new Schema({
     patient: {
         type: mongoose.Types.ObjectId,
-        ref: 'Patient'
+        ref: 'User'
     },
     systolic: {
         type: [Number],

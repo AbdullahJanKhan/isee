@@ -3,6 +3,7 @@ import './styles.css'
 import noImg from '../../../asset/no_img.png';
 import axios from 'axios';
 import { useLocation } from 'react-router';
+import Navbar from '../navbar/Navbar';
 
 export default function Home() {
 
@@ -43,24 +44,27 @@ export default function Home() {
     }
 
     return (
-        <div className='avoid_header'>
-            <div className='main_body'>
-                <div className='container' onClick={updateName}>
-                    <p>Welcome, {name}!</p>
-                    <hr />
-                </div>
-                <div className='container'>
-                    <div className='imageUpload'>
-                        <p>DR CLASSIFIER</p>
-                        <form className='form_img'>
-                            <img src={scan ? `http://localhost:5000/${scan.filename}` : noImg} alt='Eye Scan' className='scan' />
-                            <br />
-                            <p className='classify' onClick={handleClick}>
-                                Upload Image
+        <div>
+            <div> <Navbar /> </div>
+            <div className='avoid_header'>
+                <div className='main_body'>
+                    <div className='container' onClick={updateName}>
+                        <p>Welcome, {name}!</p>
+                        <hr />
+                    </div>
+                    <div className='container'>
+                        <div className='imageUpload'>
+                            <p>DR CLASSIFIER</p>
+                            <form className='form_img'>
+                                <img src={scan ? `http://localhost:5000/${scan.filename}` : noImg} alt='Eye Scan' className='scan' />
+                                <br />
+                                <p className='classify' onClick={handleClick}>
+                                    Upload Image
                             </p>
-                            <input id='scan' type='file' ref={fileInput} accept="image/*" onChange={handleChange} />
-                            <p className='classify'>Classify Disease</p>
-                        </form>
+                                <input id='scan' type='file' ref={fileInput} accept="image/*" onChange={handleChange} />
+                                <p className='classify'>Classify Disease</p>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

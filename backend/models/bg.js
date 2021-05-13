@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var BG = new Schema({
     patient: {
         type: mongoose.Types.ObjectId,
-        ref: 'Patient'
+        ref: 'User'
     },
     value: {
         type: [Number]
