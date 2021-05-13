@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/upload', (req, res) => {
+router.post('/upload', authenticate.verifyUser, (req, res, next) => {
   upload(req, res, (err) => {
     if (err) {
       res.sendStatus(500);
@@ -70,7 +70,18 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
   var token = authenticate.getToken({ _id: req.user._id });
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
-  res.json({ success: true, token: token, status: 'You are successfully logged in!', user: req.user });
+  res.json({
+    success: true,
+    token: token,
+    status: 'You are successfully logged in!',
+    user: {
+      _id: req.user._id,
+      email: req.user.username,
+      name: req.user.fname + ' ' + req.user.lname,
+      dob: req.user.dob,
+    }
+  });
 });
+
 
 module.exports = router;

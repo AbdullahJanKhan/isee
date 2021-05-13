@@ -9,15 +9,12 @@ var User = new Schema({
     lname: {
         type: String,
     },
-    username: {
-        type: String,
-    },
-    dob: {
-        type: Date
-    },
     gender: {
         type: String,
     },
+    isDoctor: {
+        type: Boolean,
+    }
 });
 
 User.plugin(passportLocalMongoose);

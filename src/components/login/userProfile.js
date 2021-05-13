@@ -37,7 +37,7 @@ export function UserProfile() {
                             </div>
                         </div>
                         <div className="subheading">
-                            <label htmlFor="email" className="change">Change Email</label>
+                            <label htmlFor="email" className="change" >Change Email</label>
                         </div>
                     </div>
                 </div>

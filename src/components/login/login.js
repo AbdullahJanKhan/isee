@@ -9,6 +9,7 @@ export function Login() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const history = useHistory()
+
     const handelSubmit = () => {
         const data = {
             'username': email,
@@ -22,6 +23,7 @@ export function Login() {
         })
             .then((res) => {
                 if (res.data.success) {
+                    console.log(res.data)
                     history.push({
                         pathname: "/home",
                         state: {
