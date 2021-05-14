@@ -25,13 +25,23 @@ export function Login() {
             .then((res) => {
                 if (res.data.success) {
                     console.log(res.data)
-                    history.push({
-                        pathname: "/home",
-                        state: {
-                            user: res.data.user,
-                            token: res.data.token
-                        }
-                    })
+                    if (res.data.user.isDoctor)
+                        history.push({
+                            pathname: "/doctor/view_request",
+                            state: {
+                                user: res.data.user,
+                                token: res.data.token
+                            }
+                        })
+                    else
+                        history.push({
+                            pathname: "/user/home",
+                            state: {
+                                user: res.data.user,
+                                token: res.data.token
+                            }
+                        })
+
                 }
             });
 
@@ -71,7 +81,7 @@ export function Login() {
                             Login
                         </button>
                         <Link to='/register'>
-                            <p style={{textDecoration:"underline"}}>Create A New Account?</p>
+                            <p style={{ textDecoration: "underline" }}>Create A New Account?</p>
                         </Link>
                     </div>
                 </div>

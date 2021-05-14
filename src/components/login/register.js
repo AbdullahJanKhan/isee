@@ -30,6 +30,7 @@ export function Register() {
             'gender': gender,
             'isDoctor': isDoctor
         }
+        console.log(data)
         axios.post('http://localhost:5000/users/register', data, {
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -167,8 +168,8 @@ export function Register() {
                                         value={cnfpassword}
                                         required={true}
                                     >
-                                        <option value='other' selected={true}>Other</option>
-                                        <option value='doctor' >Doctor</option>
+                                        <option value='other'>Other</option>
+                                        <option value='doctor'>Doctor</option>
                                     </select>
                                 </div>
                             </div>

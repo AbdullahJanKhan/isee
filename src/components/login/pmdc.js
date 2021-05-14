@@ -49,8 +49,8 @@ export function PMDC() {
                     <div className="content">
                         <div className="form">
                             <div className="form-group">
-                                <label htmlFor="password" className="placeholder">Password</label>
-                                <input type="password"
+                                <label htmlFor="pmdcid" className="placeholder">PMCD ID</label>
+                                <input type="text"
                                     name="pmdcid"
                                     placeholder="Enter PMDC ID"
                                     value={pmdc}
