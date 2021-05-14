@@ -11,6 +11,8 @@ export function Register() {
     const [date, setDate] = useState(null);
     const [password, setPassword] = useState('');
     const [cnfpassword, setcnfPassword] = useState('');
+    const [gender, setgender] = useState('');
+    const [occupation, setOccupation] = useState('');
     const history = useHistory();
 
     const handelSubmit = () => {
@@ -18,13 +20,15 @@ export function Register() {
             alert('Password Not Macthing');
             return;
         }
+        const isDoctor = occupation === 'doctor'
         const data = {
             'fname': fname,
             'lname': lname,
             'username': email,
             'password': password,
             'dob': date,
-            'gender': 'Male'
+            'gender': gender,
+            'isDoctor': isDoctor
         }
         axios.post('http://localhost:5000/users/register', data, {
             headers: {
@@ -33,10 +37,30 @@ export function Register() {
             }
         })
             .then((res) => {
-                if (res.data.success) {
-                    history.push('/login')
+                if (res.data.success && isDoctor) {
+                    history.push({
+                        pathname: "/add_pmdcid",
+                        state: {
+                            id: res.data.id
+                        }
+                    });
+                } else if (res.data.success) {
+                    history.push('/login');
+                } else {
+                    reset();
                 }
             });
+    }
+
+    const reset = () => {
+        setFname('')
+        setLname('')
+        setEmail('')
+        setDate(null)
+        setPassword('')
+        setcnfPassword('')
+        setgender('')
+        setOccupation('')
     }
 
     return (
@@ -114,6 +138,38 @@ export function Register() {
                                         value={cnfpassword}
                                         required={true}
                                     />
+                                </div>
+                            </div>
+                            <div className="inrow">
+                                <div className="form-group" style={{ marginRight: "30px" }}>
+                                    <label htmlFor="gender" className="placeholder">Gender:</label>
+                                    <input type="radio"
+                                        name="gender"
+                                        value="Male"
+                                        onChange={data => setgender(data.target.value)}
+                                        required={true}
+                                    />Male
+                                    <input type="radio"
+                                        name="gender"
+                                        value="Male"
+                                        onChange={data => setgender(data.target.value)}
+                                        required={true}
+                                    />Female
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="occupation" className="placeholder">Confirm Password</label>
+                                    <select
+                                        name="occupation"
+                                        placeholder="Occupation"
+                                        onChange={event => {
+                                            setOccupation(event.target.value)
+                                        }}
+                                        value={cnfpassword}
+                                        required={true}
+                                    >
+                                        <option value='other' selected={true}>Other</option>
+                                        <option value='doctor' >Doctor</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -7,7 +7,7 @@ var Doctor = new Schema({
         ref: 'User'
     },
     pmdcid: {
-        type: Date,
+        type: String,
     },
     isVerified: {
         type: Boolean,

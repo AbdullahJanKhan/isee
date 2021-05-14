@@ -14,6 +14,7 @@ var User = new Schema({
     },
     isDoctor: {
         type: Boolean,
+        default: false,
     },
     dob: {
         type: Date,

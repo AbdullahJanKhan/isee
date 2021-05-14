@@ -8,30 +8,28 @@ import { UserProfile } from '../login/index';
 function DoctorDashboard() {
     return (
         <div>
-            <div>
-                <Switch>
-                    <Route path='/doctor/view_request'>
-                        <div>
-                            <Requests />
-                        </div>
-                    </Route>
-                    <Route path='/doctor/dr_classifier'>
-                        <div>
-                            <Home />
-                        </div>
-                    </Route>
-                    <Route path='/doctor/details/:id'>
-                        <div>
-                            <Details />
-                        </div>
-                    </Route>
-                    <Route path='/profile'>
-                        <div>
-                            <UserProfile />
-                        </div>
-                    </Route>
-                </Switch>
-            </div>
+            <Switch>
+                <Route path='/doctor/view_request'>
+                    <div>
+                        <Requests />
+                    </div>
+                </Route>
+                <Route path='/doctor/dr_classifier'>
+                    <div>
+                        <Home />
+                    </div>
+                </Route>
+                <Route path='/doctor/details/:id'>
+                    <div>
+                        <Details />
+                    </div>
+                </Route>
+                <Route path='/doctor/profile'>
+                    <div>
+                        <UserProfile />
+                    </div>
+                </Route>
+            </Switch>
         </div>
     );
 }

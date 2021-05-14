@@ -49,6 +49,10 @@ router.post('/register', (req, res, next) => {
           user.dob = req.body.dob;
         if (req.body.gender)
           user.gender = req.body.gender
+        if (req.body.city)
+          user.city = req.body.city
+        if (req.body.isDoctor)
+          user.isDoctor = req.body.isDoctor
         user.save((err, user) => {
           if (err) {
             res.statusCode = 500;
@@ -59,7 +63,10 @@ router.post('/register', (req, res, next) => {
           passport.authenticate('local')(req, res, () => {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.json({ success: true, status: 'Registration Successful!' });
+            if (user.isDoctor)
+              res.json({ success: true, id: user._id });
+            else
+              res.json({ success: true });
           });
         });
       }
@@ -74,12 +81,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
     success: true,
     token: token,
     status: 'You are successfully logged in!',
-    user: {
-      _id: req.user._id,
-      email: req.user.username,
-      name: req.user.fname + ' ' + req.user.lname,
-      dob: req.user.dob,
-    }
+    user: req.user
   });
 });
 

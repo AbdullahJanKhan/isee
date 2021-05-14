@@ -7,37 +7,37 @@ import * as BsIcon from 'react-icons/bs'
 export const SidebarData = [
     {
         title: 'Home',
-        path: '/home',
+        path: '/user/home',
         icon: <AiIcons.AiFillHome />,
         cName: 'nav-text'
     },
     {
         title: 'Reports',
-        path: '/reports',
+        path: '/user/reports',
         icon: <IoIcons.IoIosPaper />,
         cName: 'nav-text'
     },
     {
         title: 'Manage Blood Glucose',
-        path: '/managebg',
+        path: '/user/managebg',
         icon: <BsIcon.BsDroplet />,
         cName: 'nav-text'
     },
     {
         title: 'Manage Blood Pressure',
-        path: '/managebp',
-        icon: <FaIcons.FaHeartbeat/>,
+        path: '/user/managebp',
+        icon: <FaIcons.FaHeartbeat />,
         cName: 'nav-text'
     },
     {
         title: 'Doctors',
-        path: '/searchDoc',
+        path: '/user/searchDoc',
         icon: <IoIcons.IoMdPeople />,
         cName: 'nav-text'
     },
     {
         title: 'Messages',
-        path: '/messages',
+        path: '/user/messages',
         icon: <FaIcons.FaEnvelopeOpenText />,
         cName: 'nav-text'
     },

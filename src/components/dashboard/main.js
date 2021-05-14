@@ -1,5 +1,5 @@
 import React from 'react';
-import { Login, Register } from '../login/index'
+import { Login, Register, PMDC } from '../login/index'
 import UserDashboard from './UserDashboard'
 import DoctorDashboard from './DoctorDashboard'
 import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
@@ -22,6 +22,11 @@ export default function Main() {
                         <Route path='/register'>
                             <div>
                                 <Register />
+                            </div>
+                        </Route>
+                        <Route path='/add_pmdcid'>
+                            <div>
+                                <PMDC />
                             </div>
                         </Route>
                         <Route path='/user'>

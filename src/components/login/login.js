@@ -1,7 +1,7 @@
 import React from 'react';
 import "./style.css";
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import Header from '../dashboard/navbar/header/header';
 
 
@@ -69,7 +69,10 @@ export function Login() {
                     <div className="footer">
                         <button type="button" className="btn" onClick={handelSubmit}>
                             Login
-                    </button>
+                        </button>
+                        <Link to='/register'>
+                            <p style={{textDecoration:"underline"}}>Create A New Account?</p>
+                        </Link>
                     </div>
                 </div>
             </div>
