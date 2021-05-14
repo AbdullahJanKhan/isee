@@ -75,13 +75,13 @@ label {
 input {
     margin-top: 6px;
     min-width: 18em;
-    height: 37px;
+    height: 40px;
     padding: 0px 10px;
     font-size: 16px;
     font-family: "Open Sans", sans-serif;
     background-color: #f3f3f3;
     border: 0;
-    border-radius: 5px;
+    border-radius: 0px 10px 10px 0px;
     margin-bottom: 22px;
 }
 

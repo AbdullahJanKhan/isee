@@ -7,22 +7,22 @@ import Navbar from '../navbar/Navbar';
 
 export default function Home() {
 
-    const [name, setName] = useState('Abdullah Jan Khan');
+    const [name, setName] = useState('');
     const fileInput = React.createRef();
     const [scan, setScan] = useState(null)
-    const location = useLocation();
     const [user, setUser] = useState(null)
     const [token, setToken] = useState(null)
-
+    
+    const location = useLocation();
     React.useEffect(() => {
         if (location.state) {
             setUser(location.state.user)
             setToken(location.state.token)
+            setName(location.state.user.fname + ' ' + location.state.user.lname)
         }
-    }, [location]);
+    }, [location, user]);
 
-    const updateName = () => setName('Abdullah Bin Tahir');
-    const handleClick = event => {
+    const handleClick = () => {
         fileInput.current.click();
     };
     const handleChange = event => {
@@ -45,10 +45,10 @@ export default function Home() {
 
     return (
         <div>
-            <div> <Navbar /> </div>
+            <div> <Navbar token={token} user={user} /> </div>
             <div className='avoid_header'>
                 <div className='main_body'>
-                    <div className='container' onClick={updateName}>
+                    <div className='container'>
                         <p>Welcome, {name}!</p>
                         <hr />
                     </div>

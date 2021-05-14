@@ -30,7 +30,6 @@ export function Register() {
             'gender': gender,
             'isDoctor': isDoctor
         }
-        console.log(data)
         axios.post('http://localhost:5000/users/register', data, {
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -144,21 +143,23 @@ export function Register() {
                             <div className="inrow">
                                 <div className="form-group" style={{ marginRight: "30px" }}>
                                     <label htmlFor="gender" className="placeholder">Gender:</label>
-                                    <input type="radio"
-                                        name="gender"
-                                        value="Male"
-                                        onChange={data => setgender(data.target.value)}
-                                        required={true}
-                                    />Male
-                                    <input type="radio"
-                                        name="gender"
-                                        value="Male"
-                                        onChange={data => setgender(data.target.value)}
-                                        required={true}
-                                    />Female
+                                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                        <input type="radio"
+                                            name="gender"
+                                            value="Male"
+                                            onChange={data => setgender(data.target.value)}
+                                            required={true}
+                                        />Male
+                                        <input type="radio"
+                                            name="gender"
+                                            value="Male"
+                                            onChange={data => setgender(data.target.value)}
+                                            required={true}
+                                        />Female
+                                    </div>
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="occupation" className="placeholder">Confirm Password</label>
+                                <div className="form-group" >
+                                    <label htmlFor="occupation" className="placeholder">Occupation</label>
                                     <select
                                         name="occupation"
                                         placeholder="Occupation"

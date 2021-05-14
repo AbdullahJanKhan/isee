@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Doctor = require('../models/doctor');
 var User = require('../models/user');
+var authenticate = require('../authenticate')
 
 router.use(express.json());
 
@@ -20,7 +21,7 @@ router.post('/is_doctor', (req, res) => {
         }
         if (user) {
             const doctor = new Doctor({
-                _id: _id,
+                userid: _id,
                 pmdcid: req.body.pmdcid,
             });
             doctor.save((err, doc) => {
@@ -45,6 +46,20 @@ router.post('/is_doctor', (req, res) => {
             })
         }
     });
+})
+
+router.get('/get_doc', authenticate.verifyUser, (req, res) => {
+    Doctor.find({})
+        .populate('userid')
+        .then((err, user) => {
+            if (err)
+                res.send(err)
+            else {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json({ user: user })
+            }
+        })
 })
 
 module.exports = router;

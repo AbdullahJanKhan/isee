@@ -1,14 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './styles.css'
 import * as FaIcon from 'react-icons/fa'
 import * as RiIcon from 'react-icons/ri'
 import Navbar from '../navbar/Navbar';
+import { useLocation } from 'react-router';
 
 
 export default function BP() {
+    const [user, setUser] = useState(null)
+    const [token, setToken] = useState(null)
+
+    const location = useLocation();
+    React.useEffect(() => {
+        if (location.state) {
+            setUser(location.state.user)
+            setToken(location.state.token)
+        }
+    }, [location, user]);
     return (
         <div>
-            <div><Navbar /></div>
+            <div> <Navbar token={token} user={user} /> </div>
             <div className='avoid_header'>
                 <div className='main_body'>
                     <div className='container'>

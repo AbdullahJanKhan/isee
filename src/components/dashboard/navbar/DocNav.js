@@ -7,7 +7,7 @@ import './Navbar.css';
 import { IconContext } from 'react-icons';
 import Header from './header/header';
 
-function Navbar() {
+function Navbar(props) {
     const [sidebar, setSidebar] = useState(false);
     const [accbar, setAccbar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
@@ -29,7 +29,13 @@ function Navbar() {
                         {DocbarData.map((item, index) => {
                             return (
                                 <li key={index} className={item.cName}>
-                                    <Link to={item.path}>
+                                    <Link to={{
+                                        pathname: item.path,
+                                        state: {
+                                            token: props.token,
+                                            user: props.user
+                                        }
+                                    }}>
                                         {item.icon}
                                         <span className='span_sidebar'>{item.title}</span>
                                     </Link>
@@ -46,9 +52,31 @@ function Navbar() {
                             </Link>
                         </li>
                         {AccbarData.map((item, index) => {
+                            if (item.path === '/') {
+                                return (
+                                    <li key={index} className={item.cName}>
+                                        <Link to={{
+                                            pathname: item.path,
+                                            state: {
+                                                token: props.token,
+                                                user: props.user
+                                            }
+                                        }}>
+                                            {item.icon}
+                                            <span className='span_sidebar'>{item.title}</span>
+                                        </Link>
+                                    </li>
+                                )
+                            }
                             return (
                                 <li key={index} className={item.cName}>
-                                    <Link to={item.path}>
+                                    <Link to={{
+                                        pathname: '/doctor' + item.path,
+                                        state: {
+                                            token: props.token,
+                                            user: props.user
+                                        }
+                                    }}>
                                         {item.icon}
                                         <span className='span_sidebar'>{item.title}</span>
                                     </Link>
@@ -59,7 +87,7 @@ function Navbar() {
                 </nav>
 
             </IconContext.Provider>
-        </div>
+        </div >
     );
 }
 
