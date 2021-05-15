@@ -74,7 +74,31 @@ label {
 
 input {
     margin-top: 6px;
-    min-width: 18em;
+    min-width: 90%;
+    height: 40px;
+    padding: 0px 10px;
+    font-size: 16px;
+    font-family: "Open Sans", sans-serif;
+    background-color: #f3f3f3;
+    border: 0;
+    border-radius: 0px 10px 10px 0px;
+    margin-bottom: 22px;
+}
+
+input[type='radio'] {
+    margin-top: 6px;
+    min-width: auto !important;
+    height: min-content !important;
+    padding: 0px 5px 0px 5px !important;
+    font-family: "Open Sans", sans-serif;
+    background-color: #f3f3f3;
+    border: 0;
+    border-radius: 0px 10px 10px 0px;
+}
+
+select {
+    margin-top: 6px;
+    min-width: 80%;
     height: 40px;
     padding: 0px 10px;
     font-size: 16px;

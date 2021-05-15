@@ -14,7 +14,7 @@ function UserDashboard() {
             <Switch>
                 <Route path='/user/home'>
                     <div>
-                        <Home />
+                        <Home isDoctor={false} />
                     </div>
                 </Route>
                 <Route path='/user/reports'>

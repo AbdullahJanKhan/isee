@@ -17,7 +17,7 @@ var BP = new Schema({
         default: Date.now()
     },
     unit: {
-        type: String,
+        type: [String],
         default: 'mmHg'
     }
 });

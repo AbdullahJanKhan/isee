@@ -4,15 +4,16 @@ import noImg from '../../../asset/no_img.png';
 import axios from 'axios';
 import { useLocation } from 'react-router';
 import Navbar from '../navbar/Navbar';
+import DocNav from '../navbar/DocNav';
 
-export default function Home() {
+export default function Home(props) {
 
     const [name, setName] = useState('');
     const fileInput = React.createRef();
     const [scan, setScan] = useState(null)
     const [user, setUser] = useState(null)
     const [token, setToken] = useState(null)
-    
+
     const location = useLocation();
     React.useEffect(() => {
         if (location.state) {
@@ -45,7 +46,7 @@ export default function Home() {
 
     return (
         <div>
-            <div> <Navbar token={token} user={user} /> </div>
+            <div> {props.isDoctor ? <DocNav token={token} user={user} /> : <Navbar token={token} user={user} />} </div>
             <div className='avoid_header'>
                 <div className='main_body'>
                     <div className='container'>

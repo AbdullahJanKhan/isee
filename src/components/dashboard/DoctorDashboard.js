@@ -16,7 +16,7 @@ function DoctorDashboard() {
                 </Route>
                 <Route path='/doctor/dr_classifier'>
                     <div>
-                        <Home />
+                        <Home isDoctor={true} />
                     </div>
                 </Route>
                 <Route path='/doctor/details/:id'>

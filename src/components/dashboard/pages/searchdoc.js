@@ -57,10 +57,24 @@ const Card = (props) => {
                 <p>Dr. {props.userid.fname + ' ' + props.userid.lname} {getVerified()}</p>
                 <p>PMDC Licence ID: {props.pmdcid}</p>
             </div>
-            <div style={{ width: '40%%', flexDirection: 'row-reverse', alignSelf: 'center' }}>
+            <div style={{
+                width: '40%%',
+                flexDirection: 'row-reverse',
+                alignSelf: 'center',
+                paddingRight: '10px'
+            }}>
                 <p style={{
-                    width: 'max-content', backgroundColor: 'grey', color: "#fff", cursor: 'pointer', height: '35px', alignContent: 'center', top: '50%',
-                    left: '50%'
+                    width: 'max-content',
+                    backgroundColor: 'grey',
+                    color: "#fff",
+                    cursor: 'pointer',
+                    alignContent: 'center',
+                    top: '50%',
+                    left: '50%',
+                    fontSize: '20px',
+                    borderRadius: '10px',
+                    padding: '5px',
+                    boxShadow: '5px 5px 5px 1px grey'
                 }}>Request Sent</p>
             </div>
         </div>
