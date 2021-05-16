@@ -85,5 +85,25 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
   });
 });
 
+router.get('/get_user/:id', authenticate.verifyUser, (req, res, next) => {
+  User.findById(req.params.id, (err, user) => {
+    if (err)
+      res.json({
+        err: err,
+        success: false
+      })
+    else if (user) {
+      res.json({
+        user: user,
+        success: true
+      })
+    } else {
+      res.json({
+        success: false
+      })
+    }
+  })
+})
+
 
 module.exports = router;

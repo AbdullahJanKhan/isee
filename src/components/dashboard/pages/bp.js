@@ -4,7 +4,7 @@ import * as FaIcon from 'react-icons/fa'
 import Navbar from '../navbar/Navbar';
 import { useLocation } from 'react-router';
 import axios from 'axios';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 
 
 export default function BP() {
@@ -105,7 +105,7 @@ export default function BP() {
                     </div>
                     <hr />
                     <div>
-                        {record ? <Bar
+                        {record ? <Line
                             data={{
                                 labels: record.dateAdded,
                                 datasets:
@@ -122,7 +122,7 @@ export default function BP() {
                                             backgroundColor: 'rgba(75,19,12,1)',
                                             borderColor: 'rgba(0,0,0,1)',
                                             borderWidth: 1,
-                                            data: record.value
+                                            data: [10, 102, 56, 109, 200, 108]
                                         },
                                     ]
                             }}

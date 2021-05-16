@@ -53,12 +53,12 @@ const Card = (props) => {
     }
     return (
         <div className='box' key={props.id} style={{ justifyContent: 'space-between', display: 'flex' }}>
-            <div style={{ width: '40%%' }}>
+            <div style={{ width: '40%' }}>
                 <p>Dr. {props.userid.fname + ' ' + props.userid.lname} {getVerified()}</p>
                 <p>PMDC Licence ID: {props.pmdcid}</p>
             </div>
             <div style={{
-                width: '40%%',
+                width: '40%',
                 flexDirection: 'row-reverse',
                 alignSelf: 'center',
                 paddingRight: '10px'
