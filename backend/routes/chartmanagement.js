@@ -103,7 +103,9 @@ router.post('/add_bp_record', authenticate.verifyUser, (req, res, next) => {
 })
 
 router.get('/get_bp_record', authenticate.verifyUser, (req, res, next) => {
-    BP.findOne({ patient: req.body.patient }, (err, record) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    BP.findOne({ patient: req.user._id }, (err, record) => {
         if (err)
             res.json({
                 err: err,
@@ -118,7 +120,9 @@ router.get('/get_bp_record', authenticate.verifyUser, (req, res, next) => {
 })
 
 router.get('/get_bg_record', authenticate.verifyUser, (req, res, next) => {
-    BG.findOne({ patient: req.body.patient }, (err, record) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    BG.findOne({ patient: req.user._id }, (err, record) => {
         if (err)
             res.json({
                 err: err,

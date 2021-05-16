@@ -26,7 +26,7 @@ function DoctorDashboard() {
                 </Route>
                 <Route path='/doctor/profile'>
                     <div>
-                        <UserProfile />
+                        <UserProfile isDoctor={true}/>
                     </div>
                 </Route>
             </Switch>

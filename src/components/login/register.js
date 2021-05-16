@@ -162,12 +162,9 @@ export function Register() {
                                     <label htmlFor="occupation" className="placeholder">Occupation</label>
                                     <select
                                         name="occupation"
-                                        placeholder="Occupation"
                                         onChange={event => {
                                             setOccupation(event.target.value)
                                         }}
-                                        value={cnfpassword}
-                                        required={true}
                                     >
                                         <option value='other'>Other</option>
                                         <option value='doctor'>Doctor</option>

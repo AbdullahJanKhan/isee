@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router';
 import Navbar from '../dashboard/navbar/Navbar';
+import DocNav from '../dashboard/navbar/DocNav';
 import "./style.css";
-export function UserProfile() {
+
+export function UserProfile(props) {
+    const [user, setUser] = useState(null)
+    const [token, setToken] = useState(null)
+    const location = useLocation();
+    React.useEffect(() => {
+        if (location.state) {
+            setUser(location.state.user)
+            setToken(location.state.token)
+        }
+    }, [location, user]);
 
     return (
         <div>
-            <div> <Navbar /> </div>
+            <div> {props.isDoctor ? <DocNav token={token} user={user} /> : <Navbar token={token} user={user} />} </div>
             <div className="base-container">
                 <div className="boxup">
                     <div className="Register">

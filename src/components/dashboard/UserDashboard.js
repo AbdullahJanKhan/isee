@@ -44,7 +44,7 @@ function UserDashboard() {
                 </Route>
                 <Route path='/user/profile'>
                     <div>
-                        <UserProfile />
+                        <UserProfile isDoctor={false} />
                     </div>
                 </Route>
             </Switch>

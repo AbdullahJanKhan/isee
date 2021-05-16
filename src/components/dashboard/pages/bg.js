@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import './styles.css'
 import * as BsIcon from 'react-icons/bs'
-import * as AiIcons from 'react-icons/ai'
 import Navbar from '../navbar/Navbar';
 import { useLocation } from 'react-router';
 import axios from 'axios';
+import { Bar } from 'react-chartjs-2';
 
 
 export default function BG() {
@@ -18,28 +18,26 @@ export default function BG() {
     const location = useLocation();
     React.useEffect(() => {
         if (location.state) {
-            setUser(location.state.user)
-            setToken(location.state.token)
-            getRec(location.state.token, location.state.user._id)
-        }
-    }, [location, user]);
-
-    const getRec = (t, id) => {
-        axios.get('http://localhost:5000/chart/get_bg_record', {
-            patient: id
-        }, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                'Authorization': `Bearer ${t}`
-            }
-        })
-            .then(res => {
-                if (res.data.success) {
-                    setRecord(res.data.record)
+            var u = location.state.user
+            var t = location.state.token
+            setUser(u)
+            setToken(t)
+            axios.get('http://localhost:5000/chart/get_bg_record', {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                    'Authorization': `Bearer ${t}`
                 }
             })
-    }
+                .then(res => {
+                    if (res.data.success) {
+                        setRecord(res.data.record)
+                    }
+                })
+
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleSubmit = () => {
         const data = {
@@ -115,28 +113,120 @@ export default function BG() {
                                 <p>Latest Records</p>
                             </div>
                             <hr />
-                            <div className='dir_col'>
-                                {record ? <TableR value={record.value[0]} unit={record.unit[0]} takenAt={record.dateAdded[0]} timeofDay={record.dateAdded[0]}/> : <p></p>}
+                            <div style={{ fontWeight: 'normal', fontSize: '90%' }}>
+                                {record ?
+                                    <Table record={record} />
+                                    : <p></p>}
                             </div>
                         </div>
                     </div>
                     <hr />
-                    <div><p>Graphs Would be Shown Here</p></div>
+                    <div>
+                        {record ? <Bar
+                            data={{
+                                labels: record.dateAdded,
+                                datasets:
+                                    [
+                                        {
+                                            label: 'Blood Sugar Random',
+                                            backgroundColor: 'rgba(75,192,192,1)',
+                                            borderColor: 'rgba(0,0,0,1)',
+                                            borderWidth: 1,
+                                            data: record.value
+                                        },
+                                        {
+                                            label: 'Blood Sugar Fasting',
+                                            backgroundColor: 'rgba(75,19,12,1)',
+                                            borderColor: 'rgba(0,0,0,1)',
+                                            borderWidth: 1,
+                                            data: record.value
+                                        },
+                                    ]
+                            }}
+                            options={{
+                                title: {
+                                    display: true,
+                                    text: 'Average Rainfall per month',
+                                    fontSize: 16
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'center'
+                                }
+                            }}
+                        />
+                            : <p>Graphs Would be Shown Here</p>}
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
 
-const TableR = (props) => {
+const Table = (props) => {
+    var record = props.record
+    console.log()
     return (
-        <div className='dir_row' style={{ justifyContent: 'space-evenly', width: '100%', padding: '5px' }}>
-            <div style={{ width: '15%', textAlign: 'center' }}>{props.value}</div>
-            <div style={{ width: '15%', textAlign: 'center' }}>{props.unit}</div>
-            <div style={{ width: '15%', textAlign: 'center' }}>{props.takenAt}</div>
-            <div style={{ width: '15%', textAlign: 'center' }}>{props.timeofDay}</div>
-            <div style={{ width: '15%', textAlign: 'center' }}>
-                <AiIcons.AiOutlineDelete />
+        <div>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+                <div style={{ width: '15%', display: 'flex', flexDirection: 'row' }}>
+                    <p>{record.value[0]}</p>
+                    <p>{record.unit[0]}</p>
+                </div>
+                <div style={{ width: '15%' }}>
+                    <p>{record.timeofday[0]}</p>
+                </div>
+                <div style={{ width: '35%' }}>
+                    <p>{String(record.dateAdded[0]).slice(0, 10)}</p>
+                </div>
+                <div style={{ width: '15%' }}>
+                    <p>Action</p>
+                </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+                <div style={{ width: '15%', display: 'flex', flexDirection: 'row' }}>
+                    <p>{record.value[0]}</p>
+                    <p>{record.unit[0]}</p>
+                </div>
+                <div style={{ width: '15%' }}>
+                    <p>{record.timeofday[0]}</p>
+                </div>
+                <div style={{ width: '35%' }}>
+                    <p>{String(record.dateAdded[0]).slice(0, 10)}</p>
+                </div>
+                <div style={{ width: '15%' }}>
+                    <p>Action</p>
+                </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+                <div style={{ width: '15%', display: 'flex', flexDirection: 'row' }}>
+                    <p>{record.value[0]}</p>
+                    <p>{record.unit[0]}</p>
+                </div>
+                <div style={{ width: '15%' }}>
+                    <p>{record.timeofday[0]}</p>
+                </div>
+                <div style={{ width: '35%' }}>
+                    <p>{String(record.dateAdded[0]).slice(0, 10)}</p>
+                </div>
+                <div style={{ width: '15%' }}>
+                    <p>Action</p>
+                </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+                <div style={{ width: '15%', display: 'flex', flexDirection: 'row' }}>
+                    <p>{record.value[0]}</p>
+                    <p>{record.unit[0]}</p>
+                </div>
+                <div style={{ width: '15%' }}>
+                    <p>{record.timeofday[0]}</p>
+                </div>
+                <div style={{ width: '35%' }}>
+                    <p>{String(record.dateAdded[0]).slice(0, 10)}</p>
+                </div>
+                <div style={{ width: '15%' }}>
+                    <p>Action</p>
+                </div>
             </div>
         </div>
     )
