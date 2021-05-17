@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
-import UserDashboard from './components/dashboard/UserDashboard'
+import Main from './components/dashboard/main'
 function App() {
   return (
     <div>
-      <UserDashboard />
+      <Main />
     </div>
   );
 }

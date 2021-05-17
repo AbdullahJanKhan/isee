@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { SidebarData } from './SidebarData';
+import { DocbarData } from './DocSidebar';
 import { AccbarData } from './AccbarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
@@ -26,7 +26,7 @@ function Navbar(props) {
                                 <AiIcons.AiOutlineClose />
                             </Link>
                         </li>
-                        {SidebarData.map((item, index) => {
+                        {DocbarData.map((item, index) => {
                             return (
                                 <li key={index} className={item.cName}>
                                     <Link to={{
@@ -71,7 +71,7 @@ function Navbar(props) {
                             return (
                                 <li key={index} className={item.cName}>
                                     <Link to={{
-                                        pathname: '/user' + item.path,
+                                        pathname: '/doctor' + item.path,
                                         state: {
                                             token: props.token,
                                             user: props.user

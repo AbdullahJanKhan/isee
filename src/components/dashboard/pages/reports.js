@@ -1,9 +1,23 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './styles.css';
 import * as AiIcons from 'react-icons/ai';
-export default class Report extends Component {
-    render() {
-        return (
+import Navbar from '../navbar/Navbar';
+import { useLocation } from 'react-router';
+export default function Report() {
+    const [user, setUser] = useState(null)
+    const [token, setToken] = useState(null)
+
+    const location = useLocation();
+    React.useEffect(() => {
+        if (location.state) {
+            setUser(location.state.user)
+            setToken(location.state.token)
+        }
+    }, [location, user]);
+
+    return (
+        <div>
+            <div> <Navbar token={token} user={user} /> </div>
             <div className='avoid_header'>
                 <div className='main_body'>
                     <div className='container'>
@@ -82,6 +96,6 @@ export default class Report extends Component {
                     </div>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }

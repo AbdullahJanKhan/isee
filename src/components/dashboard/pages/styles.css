@@ -7,8 +7,9 @@
     margin: auto;
     padding: 20px;
     width: 85%;
-    border-radius: 15px;
-    /* box-shadow: 5px 5px 100px rgba(97, 103, 115, 0.3); */
+    border-radius: 20px;
+    border: 1px solid #616773;
+    box-shadow: 5px 5px 5px 5px rgba(38, 40, 45, 0.2);
 }
 
 .container {
@@ -104,3 +105,4 @@ input[type='file'] {
 .table_header {
     font-weight: bold;
 }
+
