@@ -51,6 +51,7 @@
     width: 25px;
     height: 25px;
     margin-left: 10px;
+    align-self: center;
 }
 
 .classify {
@@ -106,3 +107,18 @@ input[type='file'] {
     font-weight: bold;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.new_records {
+    width: max-content;
+    border-radius: 15px;
+    padding: 5px;
+}

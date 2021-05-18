@@ -12,100 +12,41 @@ router.get('/', function (req, res, next) {
 router.post('/add_bg_record', authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
-    BG.findOne({ patient: req.body.patient }, (err, record) => {
-        if (err) {
+    BG.create(req.body, (err, data) => {
+        if (err)
             res.json({
                 err: err,
                 success: false
             })
-        } else if (record) {
-            record.dateAdded.push(Date.now())
-            record.timeofday.push(req.body.timeofday)
-            record.value.push(req.body.value)
-            record.unit.push(req.body.unit)
-            record.save((err, data) => {
-                if (err) {
-                    res.json({
-                        err: err,
-                        success: false
-                    })
-                }
-                else {
-                    res.json({
-                        success: true,
-                        record: data
-                    })
-
-                }
+        else
+            res.json({
+                record: data,
+                success: true
             })
-        } else {
-            BG.create(req.body, (err, data) => {
-                if (err)
-                    res.json({
-                        err: err,
-                        success: false
-                    })
-                else
-                    res.json({
-                        record: data,
-                        success: true
-                    })
-            })
-        }
     })
 })
 
 router.post('/add_bp_record', authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
-    BP.findOne({ patient: req.body.patient }, (err, record) => {
-        if (err) {
+    BP.create(req.body, (err, data) => {
+        if (err)
             res.json({
                 err: err,
                 success: false
             })
-        } else if (record) {
-            record.dateAdded.push(Date.now())
-            record.systolic.push(Number(req.body.systolic))
-            record.dystolic.push(Number(req.body.dystolic))
-            record.save((err, data) => {
-                if (err) {
-                    res.json({
-                        err: err,
-                        success: false
-                    })
-                }
-                else {
-                    res.json({
-                        success: true,
-                        record: data
-                    })
-
-                }
+        else
+            res.json({
+                record: data,
+                success: true
             })
-        }
-        else {
-            BP.create(req.body, (err, data) => {
-                if (err)
-                    res.json({
-                        err: err,
-                        success: false
-                    })
-                else
-                    res.json({
-                        record: data,
-                        success: true
-                    })
-            })
-
-        }
     })
 })
 
 router.get('/get_bp_record', authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
-    BP.findOne({ patient: req.user._id }, (err, record) => {
+    BP.find({ patient: req.user._id }, (err, record) => {
         if (err)
             res.json({
                 err: err,
@@ -122,7 +63,7 @@ router.get('/get_bp_record', authenticate.verifyUser, (req, res, next) => {
 router.get('/get_bg_record', authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
-    BG.findOne({ patient: req.user._id }, (err, record) => {
+    BG.find({ patient: req.user._id }).sort({ $natural: -1 }).limit(5).exec((err, record) => {
         if (err)
             res.json({
                 err: err,
@@ -136,5 +77,48 @@ router.get('/get_bg_record', authenticate.verifyUser, (req, res, next) => {
     })
 })
 
+router.get('/bg_graph', authenticate.verifyUser, (req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    BG.find({ patient: req.user._id }, (err, record) => {
+        if (err)
+            res.json({
+                success: false,
+                err: err,
+            })
+        else if (record) {
+            var fasting = []
+            var random = []
+            var fdates = []
+            var rdates = []
+            for (var i = 0; i < record.length; i++) {
+                if (record[i].isFasting) {
+                    fasting.push(record[i].value)
+                    fdates.push(record[i].dateAdded)
+                } else {
+                    random.push(record[i].value)
+                    rdates.push(record[i].dateAdded)
+                }
+            }
+            res.json(
+                {
+                    success: true,
+                    record: {
+                        fdates: fdates,
+                        fasting: fasting,
+                        rdates: rdates,
+                        random: random
+                    }
+                })
+        }
+        else {
+            res.json({
+                success: false,
+                err: 'No Record Found'
+            })
+        }
+
+    })
+})
 
 module.exports = router;

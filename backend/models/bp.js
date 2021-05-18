@@ -7,17 +7,17 @@ var BP = new Schema({
         ref: 'User'
     },
     systolic: {
-        type: [Number],
+        type: Number,
     },
     dystolic: {
-        type: [Number]
+        type: Number
     },
     dateAdded: {
-        type: [Date],
+        type: Date,
         default: Date.now()
     },
     unit: {
-        type: [String],
+        type: String,
         default: 'mmHg'
     }
 });
