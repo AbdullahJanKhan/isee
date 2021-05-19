@@ -7,17 +7,17 @@ var BG = new Schema({
         ref: 'User'
     },
     value: {
-        type: [Number]
+        type: Number
     },
-    timeofday: {
-        type: [String]
+    isFasting: {
+        type: Boolean
     },
     dateAdded: {
-        type: [Date],
+        type: Date,
         default: Date.now()
     },
     unit: {
-        type: [String],
+        type: String,
         default: 'mg/dL'
     }
 });

@@ -4,7 +4,7 @@ import * as FaIcon from 'react-icons/fa'
 import Navbar from '../navbar/Navbar';
 import { useLocation } from 'react-router';
 import axios from 'axios';
-import { Bar, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 
 export default function BP() {
@@ -147,65 +147,20 @@ export default function BP() {
 }
 
 const Table = (props) => {
-    var record = props.record
-    console.log()
+    var record = props.record[props.record.length - 1]
+    console.log(props.record)
     return (
         <div>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
                 <div style={{ width: '15%', display: 'flex', flexDirection: 'row' }}>
-                    <p>{record.value[0]}</p>
-                    <p>{record.unit[0]}</p>
+                    <p>{record.value}</p>
+                    <p>{record.unit}</p>
                 </div>
                 <div style={{ width: '15%' }}>
-                    <p>{record.timeofday[0]}</p>
+                    <p>{record.isFasting ? 'Fasting' : 'Random'}</p>
                 </div>
                 <div style={{ width: '35%' }}>
-                    <p>{String(record.dateAdded[0]).slice(0, 10)}</p>
-                </div>
-                <div style={{ width: '15%' }}>
-                    <p>Action</p>
-                </div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
-                <div style={{ width: '15%', display: 'flex', flexDirection: 'row' }}>
-                    <p>{record.value[0]}</p>
-                    <p>{record.unit[0]}</p>
-                </div>
-                <div style={{ width: '15%' }}>
-                    <p>{record.timeofday[0]}</p>
-                </div>
-                <div style={{ width: '35%' }}>
-                    <p>{String(record.dateAdded[0]).slice(0, 10)}</p>
-                </div>
-                <div style={{ width: '15%' }}>
-                    <p>Action</p>
-                </div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
-                <div style={{ width: '15%', display: 'flex', flexDirection: 'row' }}>
-                    <p>{record.value[0]}</p>
-                    <p>{record.unit[0]}</p>
-                </div>
-                <div style={{ width: '15%' }}>
-                    <p>{record.timeofday[0]}</p>
-                </div>
-                <div style={{ width: '35%' }}>
-                    <p>{String(record.dateAdded[0]).slice(0, 10)}</p>
-                </div>
-                <div style={{ width: '15%' }}>
-                    <p>Action</p>
-                </div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
-                <div style={{ width: '15%', display: 'flex', flexDirection: 'row' }}>
-                    <p>{record.value[0]}</p>
-                    <p>{record.unit[0]}</p>
-                </div>
-                <div style={{ width: '15%' }}>
-                    <p>{record.timeofday[0]}</p>
-                </div>
-                <div style={{ width: '35%' }}>
-                    <p>{String(record.dateAdded[0]).slice(0, 10)}</p>
+                    <p>{new Date(record.dateAdded).toLocaleDateString()}</p>
                 </div>
                 <div style={{ width: '15%' }}>
                     <p>Action</p>
