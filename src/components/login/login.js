@@ -23,8 +23,10 @@ export function Login() {
             }
         })
             .then((res) => {
+                if (res.status === 401) {
+                    alert('Test')
+                }
                 if (res.data.success) {
-                    console.log(res.data)
                     if (res.data.user.isDoctor)
                         history.push({
                             pathname: "/doctor/view_request",
@@ -43,8 +45,8 @@ export function Login() {
                         })
 
                 }
-            });
-
+            })
+            .catch(res => alert('Invalid Credentials'))
     }
 
     return (

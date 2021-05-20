@@ -122,3 +122,41 @@ input[type='file'] {
     border-radius: 15px;
     padding: 5px;
 }
+
+/* Search Doc Card */
+.p_button_div {
+    width: 40%;
+    flex-direction: row;
+    align-self: center;
+    padding-right: 10px;
+}
+
+.p_sent {
+    width: max-content;
+    background-color: #999da0;
+    color: #fff;
+    cursor: pointer;
+    align-content: center;
+    top: 50%;
+    left: auto;
+    right: auto;
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 2px 2px rgba(153, 157, 160, 0.5);
+}
+
+.p_not_sent {
+    width: max-content;
+    background-color: #588bae;
+    color: #fff;
+    cursor: pointer;
+    align-content: center;
+    top: 50%;
+    left: auto;
+    right: auto;
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 2px 2px rgba(88, 139, 174, 0.5);
+}
