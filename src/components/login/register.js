@@ -148,13 +148,11 @@ export function Register() {
                                             name="gender"
                                             value="Male"
                                             onChange={data => setgender(data.target.value)}
-                                            required={true}
                                         />Male
                                         <input type="radio"
                                             name="gender"
-                                            value="Male"
+                                            value="Female"
                                             onChange={data => setgender(data.target.value)}
-                                            required={true}
                                         />Female
                                     </div>
                                 </div>

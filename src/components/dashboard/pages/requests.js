@@ -26,7 +26,12 @@ export default function Requests() {
                         <hr />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
-                        {user ? <Card userid={user} id={user._id} token={token} /> : <p>Test</p>}
+                        {user ? <Card
+                            userid={user}
+                            id={user._id}
+                            token={token} />
+                            :
+                            <p>Test</p>}
                     </div>
 
                 </div>
@@ -47,7 +52,7 @@ const Card = (props) => {
         })
     }
     return (
-        <div className='box' key={props.id} style={{ justifyContent: 'space-between', display: 'flex' }}>
+        <div className='box_row' key={props.id} style={{ justifyContent: 'space-between', display: 'flex' }}>
             <div style={{ width: '80%' }}>
                 <p>{props.userid.fname + ' ' + props.userid.lname}</p>
                 <p>Reason: Imbalance in Sugar cannot control</p>

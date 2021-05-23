@@ -3,6 +3,7 @@ import { useLocation } from 'react-router';
 import Navbar from '../navbar/Navbar';
 import axios from 'axios';
 import * as GoIcons from 'react-icons/go'
+import * as GiIcons from 'react-icons/gi'
 import './styles.css'
 
 export default function Doctor() {
@@ -33,9 +34,8 @@ export default function Doctor() {
                 }
             })
                 .then(res => {
-                    console.log(res.data)
                     if (res.data.success) {
-                        setRequested(res.data.data)
+                        setRequested(res.data)
                     } else {
                         setRequested(['none requested'])
                     }
@@ -49,22 +49,25 @@ export default function Doctor() {
             <div> <Navbar token={token} user={user} /> </div>
             <div className='avoid_header'>
                 <div className='main_body'>
-                    <h2>Search Doctor</h2>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
-                        {(doctors && requested) ? Object.keys(doctors).map((i) => {
-                            return (<Card
-                                userid={doctors[i].userid}
-                                pmdcid={doctors[i].pmdcid}
-                                isVerified={doctors[i].isVerified}
-                                key={doctors[i]._id}
-                                user={user}
-                                token={token}
-                                d_id={doctors[i]._id}
-                                requested={requested}
-                                setRequested={setRequested}
-                            />)
-                        }) : <p></p>}
-                    </div>
+                    <h2>Request Doctor For Appointment</h2>
+                    <hr />
+                    {(doctors && requested) ? Object.keys(doctors).map((i) => {
+                        return (
+                            <div style={{ width: '100%', justifyContent: 'center' }} key={doctors[i]._id}>
+                                <Card
+                                    userid={doctors[i].userid}
+                                    pmdcid={doctors[i].pmdcid}
+                                    isVerified={doctors[i].isVerified}
+                                    key={doctors[i].userid._id}
+                                    user={user}
+                                    token={token}
+                                    d_id={doctors[i]._id}
+                                    requested={requested}
+                                    setRequested={setRequested}
+                                />
+                            </div>
+                        )
+                    }) : <p>Fetching Data</p>}
                 </div>
             </div>
         </div>
@@ -72,6 +75,8 @@ export default function Doctor() {
 }
 
 const Card = (props) => {
+    const [msg, setMsg] = useState('')
+
     const getVerified = () => {
         return props.isVerified ? <GoIcons.GoVerified /> : <GoIcons.GoUnverified />
     }
@@ -87,7 +92,7 @@ const Card = (props) => {
         const data = {
             p_id: props.user._id,
             d_id: props.d_id,
-            msg: 'Test data passed'
+            msg: msg
         }
         axios.post('http://localhost:5000/request/add_request', data, {
             headers: {
@@ -108,30 +113,76 @@ const Card = (props) => {
                         .then(res => {
                             if (res.data.success) {
                                 props.setRequested(res.data.data)
-                                console.log(res.data)
+                            } else {
+                                props.setRequested(['No Record Found'])
+                            }
+                        })
+            })
+    }
+
+    const handelCancel = () => {
+        axios.delete(`http://localhost:5000/request/delete_req/${props.user._id}/${props.d_id}`, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                'Authorization': `Bearer ${props.token}`
+            }
+        })
+            .then(res => {
+                if (res.data.success)
+                    axios.get('http://localhost:5000/request/get_requests', {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                            'Authorization': `Bearer ${props.token}`
+                        }
+                    })
+                        .then(res => {
+                            console.log(res.data)
+                            if (res.data.success) {
+                                props.setRequested(res.data.data)
+                            } else {
+                                props.setRequested(['No Record Found'])
                             }
                         })
             })
     }
     return (
-        <div className='box' style={{
+        <div className='box_row' style={{
             justifyContent: 'space-between',
             display: 'flex'
         }}>
-            <div style={{ width: '40%' }}>
-                <p>Dr. {props.userid.fname + ' ' + props.userid.lname} {getVerified()}</p>
+            <div style={{ width: '40%', alignSelf: 'center' }}>
+                <p>Dr. {props.userid.fname.toUpperCase() + ' ' + props.userid.lname.toUpperCase()} {getVerified()}</p>
                 <p>PMDC Licence ID: {props.pmdcid}</p>
             </div>
             <div className='p_button_div'>
-                <p
-                    className={isRequested() ? 'p_sent' : 'p_not_sent'}
-                    onClick={!isRequested() ? handelRequest : (() => 'Cannot Request')}>
-                    {isRequested() ? 'Request Sent' : 'Send Request'}
-                </p>
+                {isRequested() ?
+                    <div style={{ alignSelf: 'center' }}>
+                        <p className='p_sent'>Request Sent</p>
+                        <p onClick={() => handelCancel()} style={{ cursor: 'pointer' }}><GiIcons.GiCancel /> Cancel Request </p>
+                    </div>
+                    :
+                    <div style={{ alignSelf: 'center' }}>
+                        <input
+                            type='text'
+                            placeholder='Enter Reason'
+                            value={msg}
+                            onChange={e => setMsg(e.target.value)}
+                        />
+                        <p
+                            className='p_not_sent'
+                            onClick={handelRequest}
+                        >
+                            Send Request
+                        </p>
+                    </div>
+                }
             </div>
         </div>
     )
 }
+// onClick={!isRequested() ?  : (() => 'Cannot Request')}>
 
 // data = {p_id = user._id, d_id = doctor._id, msg=msg}
 // axios.get('http://localhost:5000/request/add_request', {

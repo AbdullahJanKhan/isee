@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import './styles.css'
 import * as FaIcon from 'react-icons/fa'
+import * as AiIcons from 'react-icons/ai'
 import Navbar from '../navbar/Navbar';
 import { useLocation } from 'react-router';
 import axios from 'axios';
-import { Line } from 'react-chartjs-2';
-
+import { Bar } from 'react-chartjs-2';
 
 export default function BP() {
     const [user, setUser] = useState(null)
@@ -13,6 +13,8 @@ export default function BP() {
     const [systolic, setSystolic] = useState('')
     const [dystolic, setDystolic] = useState('')
     const [record, setRecord] = useState(null)
+    const [check, setCheck] = useState(false)
+    const [graph, setGraph] = useState(null)
 
     const location = useLocation();
     React.useEffect(() => {
@@ -21,7 +23,7 @@ export default function BP() {
             var t = location.state.token
             setUser(u)
             setToken(t)
-            axios.get('http://localhost:5000/chart/get_bg_record', {
+            axios.get('http://localhost:5000/chart/get_bp_record', {
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
@@ -33,13 +35,28 @@ export default function BP() {
                         setRecord(res.data.record)
                     }
                 })
+            axios.get('http://localhost:5000/chart/bp_graph', {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                    'Authorization': `Bearer ${t}`
+                }
+            })
+                .then(res => {
+                    if (res.data.success) {
+                        setGraph(res.data.record)
+                        console.log(res.data)
+                    }
+                })
+
         }
-    }, [location, user]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [check]);
 
     const handleSubmit = () => {
         const data = {
-            systolic: [systolic],
-            dystolic: [dystolic],
+            systolic: systolic,
+            dystolic: dystolic,
             patient: user._id
         }
         axios.post('http://localhost:5000/chart/add_bp_record', data,
@@ -51,7 +68,10 @@ export default function BP() {
                 }
             })
             .then(res => {
-                console.log(res)
+                if (res.data.success) {
+                    record.push(data)
+                    setCheck(!check)
+                }
             })
     }
 
@@ -64,81 +84,101 @@ export default function BP() {
                         <p >Manage Blood Pressure Levels</p>
                         <hr />
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-
-                        <div className='box container'>
-                            <div className='dir_row'>
-                                <p>Add New Record</p>
-                                <FaIcon.FaHeartbeat className='icon' />
-                            </div>
-                            <hr />
-                            <div className='dir_col'>
-                                <div className='form-group' style={{ padding: '2px' }}>
-                                    <label htmlFor="systolic" className="placeholder">Enter Systolic Value</label>
-                                    <input type='number' name='systolic' value={systolic} onChange={(e) => setSystolic(e.target.value)} placeholder='Systolic' />
+                    <div style={{ width: 'max-content' }}>
+                        <div className='row'>
+                            <h3>Add New Records: </h3>
+                            <FaIcon.FaHeartbeat className='icon' />
+                        </div>
+                        <hr />
+                    </div>
+                    <div className='row'>
+                        <div className='col'>
+                            <div className='new_records'>
+                                <div>
+                                    <p hidden={true}>Record Saved</p>
                                 </div>
-                                <div className='form-group' style={{ padding: '2px' }}>
-                                    <label htmlFor="dystolic" className="placeholder">Enter Dystolic Value</label>
-                                    <input type='number' name='dystolic' value={dystolic} onChange={(e) => setDystolic(e.target.value)} placeholder='Dystolic' />
+                                <div>
+                                    <div className='col'>
+                                        <div className='form-group' style={{ padding: '2px' }}>
+                                            <label htmlFor="dystolic" className="placeholder">Enter Diastolic Value</label>
+                                            <input type='number' name='dystolic' value={dystolic} onChange={(e) => setDystolic(e.target.value)} placeholder='Dystolic' />
+                                        </div>
+                                        <div className='form-group' style={{ padding: '2px' }}>
+                                            <label htmlFor="systolic" className="placeholder">Enter Systolic Value</label>
+                                            <input type='number' name='systolic' value={systolic} onChange={(e) => setSystolic(e.target.value)} placeholder='Systolic' />
+                                        </div>
+                                        <p className='classify'
+                                            style={{
+                                                margin: 'auto',
+                                                fontSize: '16px',
+                                                fontWeight: 'bold',
+                                                marginBottom: '10px'
+                                            }}
+                                            onClick={handleSubmit} >Submit</p>
+                                    </div>
                                 </div>
-                                <p className='classify'
-                                    style={{
-                                        margin: 'auto',
-                                        fontSize: '16px',
-                                        fontWeight: 'bold',
-                                        marginBottom: '10px'
-                                    }}
-                                    onClick={handleSubmit} >Submit</p>
                             </div>
                         </div>
-                        <div className='box container'>
-                            <div className='dir_row'>
-                                <p>Latest Records</p>
-                            </div>
+                    </div>
+
+                    <div className='table_container'>
+                        <div style={{ width: 'max-content' }}>
+                            <h3>Latest Records: </h3>
                             <hr />
-                            <div style={{ fontWeight: 'normal', fontSize: '90%' }}>
-                                {record ?
-                                    <Table record={record} />
-                                    : <p></p>}
-                            </div>
+                        </div>
+                        <hr />
+                        <div style={{ fontWeight: 'normal', fontSize: '90%' }}>
+                            {record ?
+                                <div>
+                                    {Object.keys(record).map((i) => <Row record={record[i]} key={record[i]._id} />)}
+                                </div>
+                                : <p></p>}
                         </div>
                     </div>
                     <hr />
                     <div>
-                        {record ? <Line
-                            data={{
-                                labels: record.dateAdded,
-                                datasets:
-                                    [
+                        {graph ?
+                            <div>
+                                <Bar
+                                    data={
                                         {
-                                            label: 'Blood Sugar Random',
-                                            backgroundColor: 'rgba(75,192,192,1)',
-                                            borderColor: 'rgba(0,0,0,1)',
-                                            borderWidth: 1,
-                                            data: record.value
+                                            labels: graph.dates,
+                                            datasets:
+                                                [
+                                                    {
+                                                        label: 'Diastolic Blood Pressure',
+                                                        backgroundColor: 'rgba(194,24,7,0.5)',
+                                                        borderColor: 'rgba(194,24,7,1)',
+                                                        borderWidth: 1,
+                                                        data: graph.systolic
+                                                    },
+                                                    {
+                                                        label: 'Systolic Blood Pressure',
+                                                        backgroundColor: 'rgba(250,128,114,0.5)',
+                                                        borderColor: 'rgba(250,128,114,1)',
+                                                        borderWidth: 1,
+                                                        data: graph.dystolic
+                                                    },
+                                                ]
+                                        }
+                                    }
+                                    options={{
+
+                                        legend: {
+                                            display: true,
+                                            position: 'center'
                                         },
-                                        {
-                                            label: 'Blood Sugar Fasting',
-                                            backgroundColor: 'rgba(75,19,12,1)',
-                                            borderColor: 'rgba(0,0,0,1)',
-                                            borderWidth: 1,
-                                            data: [10, 102, 56, 109, 200, 108]
-                                        },
-                                    ]
-                            }}
-                            options={{
-                                title: {
-                                    display: true,
-                                    text: 'Average Rainfall per month',
-                                    fontSize: 16
-                                },
-                                legend: {
-                                    display: true,
-                                    position: 'center'
-                                }
-                            }}
-                        />
-                            : <p>Graphs Would be Shown Here</p>}
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true,
+                                                max: 300
+                                            }
+                                        }
+                                    }}
+                                />
+                            </div>
+                            : <p>Fetching Data</p>}
+
                     </div>
                 </div>
             </div>
@@ -146,26 +186,21 @@ export default function BP() {
     );
 }
 
-const Table = (props) => {
-    var record = props.record[props.record.length - 1]
-    console.log(props.record)
+const Row = (props) => {
+    const record = props.record
     return (
-        <div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
-                <div style={{ width: '15%', display: 'flex', flexDirection: 'row' }}>
-                    <p>{record.value}</p>
-                    <p>{record.unit}</p>
-                </div>
-                <div style={{ width: '15%' }}>
-                    <p>{record.isFasting ? 'Fasting' : 'Random'}</p>
-                </div>
-                <div style={{ width: '35%' }}>
-                    <p>{new Date(record.dateAdded).toLocaleDateString()}</p>
-                </div>
-                <div style={{ width: '15%' }}>
-                    <p>Action</p>
-                </div>
-            </div>
+        <div className='table_row'>
+            <p>{record.systolic}</p>
+            <p>{record.unit}</p>
+            <p>|</p>
+            <p>{record.dystolic}</p>
+            <p>{record.unit}</p>
+            <p>|</p>
+            <p>{new Date(record.dateAdded).toLocaleDateString()}</p>
+            <p>|</p>
+            <p>
+                <AiIcons.AiOutlineDelete />
+            </p>
         </div>
     )
 }

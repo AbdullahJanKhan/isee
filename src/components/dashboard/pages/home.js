@@ -20,6 +20,7 @@ export default function Home(props) {
             setUser(location.state.user)
             setToken(location.state.token)
             setName(location.state.user.fname + ' ' + location.state.user.lname)
+            console.log(location.state)
         }
     }, [location, user]);
 

@@ -45,4 +45,21 @@ router.get('/get_requests', authenticate.verifyUser, (req, res) => {
     })
 })
 
+router.get('/recieved_req', authenticate.verifyUser, (req, res) => {
+    Request.find({ d_id: req.user._id })
+})
+
+router.delete('/delete_req/:p_id/:d_id', authenticate.verifyUser, (req, res) => {
+    Request.deleteOne({ p_id: req.params.p_id, d_id: req.params.d_id }, (err) => {
+        if (err)
+            res.json({
+                success: false,
+            })
+        else
+            res.json({
+                success: true,
+            })
+    })
+})
+
 module.exports = router;

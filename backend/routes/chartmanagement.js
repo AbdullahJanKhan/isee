@@ -46,7 +46,7 @@ router.post('/add_bp_record', authenticate.verifyUser, (req, res, next) => {
 router.get('/get_bp_record', authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
-    BP.find({ patient: req.user._id }, (err, record) => {
+    BP.find({ patient: req.user._id }).sort({ $natural: -1 }).limit(5).exec((err, record) => {
         if (err)
             res.json({
                 err: err,
@@ -120,5 +120,40 @@ router.get('/bg_graph', authenticate.verifyUser, (req, res) => {
 
     })
 })
+
+router.get('/bp_graph', authenticate.verifyUser, (req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    BP.find({ patient: req.user._id }, (err, record) => {
+        if (err)
+            res.json({
+                success: false,
+                err: err
+            })
+        else if (record.length > 0) {
+            var dates = []
+            var systolic = []
+            var dystolic = []
+            for (var i = 0; i < record.length; i++) {
+                dates.push(record[i].dateAdded)
+                systolic.push(record[i].systolic)
+                dystolic.push(record[i].dystolic)
+            }
+            res.json({
+                success: true,
+                record: {
+                    dates: dates,
+                    systolic: systolic,
+                    dystolic: dystolic
+                }
+            })
+        } else {
+            res.json({
+                success: false,
+                err: 'No Record Found'
+            })
+        }
+    })
+});
 
 module.exports = router;
