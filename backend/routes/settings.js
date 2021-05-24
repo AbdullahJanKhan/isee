@@ -79,4 +79,33 @@ router.patch('/update_name', authenticate.verifyUser, (req, res) => {
     })
 })
 
+router.patch('/update_gender_dob', authenticate.verifyUser, (req, res) => {
+    User.findById(req.user._id, (err, user) => {
+        if (err) {
+            res.json({
+                success: false,
+                message: err.name
+            })
+        }
+        else if (user) {
+            user.dob = req.body.dob
+            user.gender = req.body.gender
+            user.save((err, updateduser) => {
+                if (err) {
+                    res.json({
+                        success: false,
+                        message: err.name
+                    })
+                }
+                else {
+                    res.json({
+                        success: false,
+                        message: 'User Profile Updated',
+                        user: updateduser
+                    })
+                }
+            })
+        }
+    })
+})
 module.exports = router;

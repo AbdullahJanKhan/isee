@@ -15,6 +15,7 @@ export function UserProfile(props) {
     const [lname, setlname] = useState('')
     const [updateName, setUpdateName] = useState(true)
     const [gender, setgender] = useState('')
+    const [dob, setdob] = useState('')
 
     const location = useLocation();
     const history = useHistory();
@@ -25,6 +26,7 @@ export function UserProfile(props) {
             setfname(location.state.user.fname)
             setlname(location.state.user.lname)
             setgender(location.state.user.gender)
+            setdob(location.state.user.dob)
         } else {
             history.push('/')
         }
@@ -80,6 +82,24 @@ export function UserProfile(props) {
         setUpdateName(true)
     }
 
+    const handelSaveProfile = () => {
+        const data = {
+            dob: new Date(dob),
+            gender: gender,
+        }
+        axios.put('http://localhost:5000/settings/update_gender_dob', data, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then((res) => {
+                if (res.data.success) {
+                    setUser(res.data.user)
+                }
+            })
+    }
     return (
         <div>
             <div> {props.isDoctor ?
@@ -168,8 +188,8 @@ export function UserProfile(props) {
                                         type="date"
                                         name="Dob"
                                         style={{ color: "rgba(128,128,128, 1.0)" }}
-                                        value={user ? user.dob.slice(0, 10) : ''}
-                                        onChange={data => console.log(data.target.value)}
+                                        value={dob}
+                                        onChange={data => setdob(data.target.value)}
                                     />
                                 </div>
                             </div>
@@ -252,15 +272,18 @@ export function UserProfile(props) {
                                         }}
                                         onClick={handleChangePasswword}
                                     >
-                                        Change
+                                        Update Password
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="footer">
-                        <button type="button" className="btn">
-                            Done
+                        <button type="button"
+                            className="btn"
+                            onClick={handelSaveProfile}
+                        >
+                            Save Profile
                         </button>
                     </div>
                 </div>

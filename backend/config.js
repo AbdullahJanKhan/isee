@@ -1,3 +1,3 @@
 module.exports = {
-    'secretKey': 'bcs7sp21'
+    'secretKey': 'isee-fyp'
 }
