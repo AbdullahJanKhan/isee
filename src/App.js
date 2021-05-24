@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
-import Main from './components/dashboard/main'
+import Report from "./components/report";
+// import Main from './components/dashboard/main' ignore
 function App() {
   return (
-    <div>
-      <Main />
+    <div >
+      <Report />
     </div>
   );
 }
