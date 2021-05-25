@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-import Report from "./components/report";
-// import Main from './components/dashboard/main' ignore
+import Report from "./components/dashboard/pages/reportTemplate" 
+// import Main from './components/dashboard/main' 
 function App() {
   return (
     <div >

@@ -29,8 +29,6 @@ export default function Home(props) {
     };
     const handleChange = event => {
         event.preventDefault();
-        console.log(token);
-        console.log(user);
         const data = new FormData();
         data.append('file', fileInput.current.files[0]);
         axios.post('http://localhost:5000/users/upload', data, {
@@ -43,6 +41,22 @@ export default function Home(props) {
             .then((res) => {
                 setScan(res.data)
             });
+    }
+
+    const handleClassifyImage = () => {
+        const data = new FormData();
+        data.append('file', fileInput.current.files[0]);
+        axios.post('http://127.0.0.1:5000/classify', data, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then((res) => {
+                console.log(res.data)
+            });
+
     }
 
     return (
@@ -64,7 +78,7 @@ export default function Home(props) {
                                     Upload Image
                             </p>
                                 <input id='scan' type='file' ref={fileInput} accept="image/*" onChange={handleChange} />
-                                <p className='classify'>Classify Disease</p>
+                                <p className='classify' onClick={handleClassifyImage}>Classify Disease</p>
                             </form>
                         </div>
                     </div>
