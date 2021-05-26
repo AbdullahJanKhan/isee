@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './styles.css'
 import noImg from '../../../asset/no_img.png';
 import axios from 'axios';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import Navbar from '../navbar/Navbar';
 import DocNav from '../navbar/DocNav';
 
@@ -15,12 +15,13 @@ export default function Home(props) {
     const [token, setToken] = useState(null)
 
     const location = useLocation();
+    const history = useHistory()
     React.useEffect(() => {
         if (location.state) {
+            console.log(location.state)
             setUser(location.state.user)
             setToken(location.state.token)
             setName(location.state.user.fname + ' ' + location.state.user.lname)
-            console.log(location.state)
         }
     }, [location, user]);
 
@@ -54,7 +55,14 @@ export default function Home(props) {
             }
         })
             .then((res) => {
-                console.log(res.data)
+                if (res.data.success)
+                    history.push({
+                        pathname: props.isDoctor ? '/doctor/dr_report' : '/user/dr_report',
+                        state: {
+                            user: user,
+                            token: token
+                        }
+                    })
             });
 
     }

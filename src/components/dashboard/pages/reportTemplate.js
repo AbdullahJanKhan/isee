@@ -2,7 +2,7 @@ import React from "react";
 import scan from "../../../asset/10_left.jpeg";
 export default function Report() {
   return (
-    <div style={{ width: "50%", margin: "auto" }}>
+    <div>
       <div
         style={{
           display: "flex",

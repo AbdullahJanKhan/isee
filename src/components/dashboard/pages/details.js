@@ -9,6 +9,7 @@ export default function Details() {
     const [token, setToken] = useState(null)
     const [details, setDetails] = useState(null)
     const { id } = useParams();
+    const [bgGraph, setbgGraph] = useState(null)
 
     const location = useLocation();
     React.useEffect(() => {
@@ -28,6 +29,19 @@ export default function Details() {
                         setDetails(res.data.user)
                     console.log(res.data)
                 })
+            axios.get('http://localhost:5000/chart/bg_graph', {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                    'Authorization': `Bearer ${t}`
+                }
+            })
+                .then(res => {
+                    if (res.data.success) {
+                        setbgGraph(res.data.record)
+                        console.log(res.data)
+                    }
+                })
         }
     }, [id, location, user]);
     return (
@@ -40,7 +54,11 @@ export default function Details() {
                         <hr />
                     </div>
                     <div>
-                        <p>{details ? JSON.stringify(details) : <span></span>}</p>
+                        <p>{details ? <Card user={details} /> : <span></span>}</p>
+                    </div>
+                    <div>
+                        <p>Blood Glocuse Graph</p>
+                        
                     </div>
                 </div>
             </div>
@@ -48,3 +66,18 @@ export default function Details() {
     )
 }
 
+const Card = (props) => {
+    const getAge = () => {
+        // new Date(Date.now() - new Date(res.data.user.dob.slice(0, 10))).getUTCFullYear() - 1970
+        const age = new Date(Date.now() - (new Date(props.user.dob.slice(0, 10)).getTime()))
+        return (age.getUTCFullYear() - 1970);
+    }
+    return (
+        <div>
+            <p>Name: {props.user.fname.toUpperCase() + ' ' + props.user.lname.toUpperCase()}</p>
+            <p>Date Of Birth: {props.user.dob.slice(0, 10)}</p>
+            <p>Age: {getAge()}</p>
+            <p>Gender: {props.user.gender}</p>
+        </div>
+    )
+}

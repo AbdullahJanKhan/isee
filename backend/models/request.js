@@ -12,6 +12,9 @@ var Requests = new Schema({
     },
     msg: {
         type: String
+    },
+    name: {
+        type: String
     }
 });
 

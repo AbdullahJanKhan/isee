@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var authenticate = require('../authenticate');
 var Request = require('../models/request')
-
+var Doctor = require('../models/doctor')
 router.post('/add_request', authenticate.verifyUser, (req, res) => {
     Request.create(req.body, (err, data) => {
         if (err)
@@ -16,7 +16,6 @@ router.post('/add_request', authenticate.verifyUser, (req, res) => {
                 data: data
             })
     })
-
 })
 
 router.get('/get_requests', authenticate.verifyUser, (req, res) => {
@@ -46,7 +45,41 @@ router.get('/get_requests', authenticate.verifyUser, (req, res) => {
 })
 
 router.get('/recieved_req', authenticate.verifyUser, (req, res) => {
-    Request.find({ d_id: req.user._id })
+    Doctor.findOne({ userid: req.user._id }, (err, user) => {
+        if (err)
+            res.json({
+                success: false,
+                message: err.name
+            })
+        else if (user) {
+            Request.find({ d_id: user._id }, (err, requests) => {
+                if (err)
+                    res.json({
+                        success: false,
+                        message: err.name
+                    })
+                else if (requests.length > 0) {
+                    res.json({
+                        success: true,
+                        requests: requests,
+                        message: 'Request Fetched'
+                    })
+                }
+                else {
+                    res.json({
+                        success: false,
+                        message: 'No Record Found'
+                    })
+                }
+            })
+        }
+        else {
+            res.json({
+                success: false,
+                message: 'User Not Found'
+            })
+        }
+    })
 })
 
 router.delete('/delete_req/:p_id/:d_id', authenticate.verifyUser, (req, res) => {

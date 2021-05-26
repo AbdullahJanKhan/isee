@@ -16,6 +16,7 @@ export default function Doctor() {
         if (location.state) {
             setUser(location.state.user)
             setToken(location.state.token)
+            console.log(location.state.user)
             axios.get('http://localhost:5000/doctor/get_doc', {
                 headers: {
                     'Access-Control-Allow-Origin': '*',
@@ -35,7 +36,7 @@ export default function Doctor() {
             })
                 .then(res => {
                     if (res.data.success) {
-                        setRequested(res.data)
+                        setRequested(res.data.data)
                     } else {
                         setRequested(['none requested'])
                     }
@@ -92,7 +93,8 @@ const Card = (props) => {
         const data = {
             p_id: props.user._id,
             d_id: props.d_id,
-            msg: msg
+            msg: msg,
+            name: props.user.fname.toUpperCase() + ' ' + props.user.lname.toUpperCase(),
         }
         axios.post('http://localhost:5000/request/add_request', data, {
             headers: {

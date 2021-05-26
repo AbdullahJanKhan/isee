@@ -10,7 +10,7 @@ var TipCategory = new Schema({
 module.exports = mongoose.model('TipCategory', TipCategory);
 
 var Tip = new Schema({
-    _id: {
+    tip_id: {
         type: mongoose.Types.ObjectId,
         ref: 'TipCategory',
     },

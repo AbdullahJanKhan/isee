@@ -49,12 +49,23 @@ def index():
         print("Model Prediction in numpy form")
         print(type(label))
         print(prediction)
+        print(prediction[0][label])
         os.remove(image.filename)
         return jsonify({
             'success': True,
-            'label': label
+            'label': label,
+            'accuracy': str(prediction[0][label]),
         })
 
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)
+
+# 10002_left.jpeg - 0
+# 1623_right.jpeg - 0
+# 1625_left.jpeg - 0
+# 10000_left.jpeg - 0
+# 10000_right.jpeg - 0
+# 10001_right.jpeg - 0
+# 10002_right.jpeg - 0
+# 10004_left.jpeg - 0
