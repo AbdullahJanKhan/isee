@@ -3,6 +3,7 @@ import './styles.css'
 import DocNav from '../navbar/DocNav'
 import { useLocation, useParams } from 'react-router'
 import axios from 'axios'
+import { Bar } from 'react-chartjs-2';
 
 export default function Details() {
     const [user, setUser] = useState(null)
@@ -10,6 +11,7 @@ export default function Details() {
     const [details, setDetails] = useState(null)
     const { id } = useParams();
     const [bgGraph, setbgGraph] = useState(null)
+    const [bpGraph, setbpGraph] = useState(null)
 
     const location = useLocation();
     React.useEffect(() => {
@@ -25,22 +27,36 @@ export default function Details() {
                 }
             })
                 .then(res => {
-                    if (res.data.success)
-                        setDetails(res.data.user)
-                    console.log(res.data)
-                })
-            axios.get('http://localhost:5000/chart/bg_graph', {
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                    'Authorization': `Bearer ${t}`
-                }
-            })
-                .then(res => {
                     if (res.data.success) {
-                        setbgGraph(res.data.record)
-                        console.log(res.data)
+                        setDetails(res.data.user)
+                        axios.get('http://localhost:5000/chart/bg_graph/' + res.data.user._id, {
+                            headers: {
+                                'Access-Control-Allow-Origin': '*',
+                                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                                'Authorization': `Bearer ${t}`
+                            }
+                        })
+                            .then(res => {
+                                if (res.data.success) {
+                                    setbgGraph(res.data.record)
+                                    console.log(res.data)
+                                }
+                            })
+                        axios.get('http://localhost:5000/chart/bp_graph/' + res.data.user._id, {
+                            headers: {
+                                'Access-Control-Allow-Origin': '*',
+                                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                                'Authorization': `Bearer ${t}`
+                            }
+                        })
+                            .then(res => {
+                                if (res.data.success) {
+                                    setbpGraph(res.data.record)
+                                    console.log(res.data)
+                                }
+                            })
                     }
+                    console.log(res.data)
                 })
         }
     }, [id, location, user]);
@@ -54,11 +70,127 @@ export default function Details() {
                         <hr />
                     </div>
                     <div>
-                        <p>{details ? <Card user={details} /> : <span></span>}</p>
+                        <p>{details ? <Card user={details} /> : 'Fetching Data'}</p>
                     </div>
                     <div>
                         <p>Blood Glocuse Graph</p>
-                        
+                        <div>
+                            {bgGraph ?
+                                <div>
+                                    <Bar
+                                        data={
+                                            {
+                                                labels: bgGraph.fdates,
+                                                datasets:
+                                                    [
+                                                        {
+                                                            label: 'Blood Sugar Fasting',
+                                                            backgroundColor: 'rgba(75,192,192,1)',
+                                                            borderColor: 'rgba(0,0,0,1)',
+                                                            borderWidth: 1,
+                                                            data: bgGraph.fasting
+                                                        },
+                                                    ]
+                                            }
+                                        }
+                                        options={{
+                                            title: {
+                                                display: true,
+                                                text: 'Average Rainfall per month',
+                                                fontSize: 16
+                                            },
+                                            legend: {
+                                                display: true,
+                                                position: 'center'
+                                            },
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true,
+                                                    max: 300
+                                                }
+                                            }
+                                        }}
+                                    />
+                                    <Bar
+                                        data={
+                                            {
+                                                labels: bgGraph.rdates,
+                                                datasets:
+                                                    [
+                                                        {
+                                                            label: 'Blood Sugar Random',
+                                                            backgroundColor: 'rgba(75,192,192,1)',
+                                                            borderColor: 'rgba(0,0,0,1)',
+                                                            borderWidth: 1,
+                                                            data: bgGraph.random
+                                                        },
+                                                    ]
+                                            }
+                                        }
+                                        options={{
+                                            title: {
+                                                display: true,
+                                                text: 'Average Rainfall per month',
+                                                fontSize: 16
+                                            },
+                                            legend: {
+                                                display: true,
+                                                position: 'right'
+                                            },
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true,
+                                                    max: 300
+                                                }
+                                            }
+                                        }}
+                                    />
+                                </div>
+                                : <p>Fetching Data</p>}
+                        </div>
+                        <div>
+                            {bpGraph ?
+                                <div>
+                                    <Bar
+                                        data={
+                                            {
+                                                labels: bpGraph.dates,
+                                                datasets:
+                                                    [
+                                                        {
+                                                            label: 'Diastolic Blood Pressure',
+                                                            backgroundColor: 'rgba(194,24,7,0.5)',
+                                                            borderColor: 'rgba(194,24,7,1)',
+                                                            borderWidth: 1,
+                                                            data: bpGraph.systolic
+                                                        },
+                                                        {
+                                                            label: 'Systolic Blood Pressure',
+                                                            backgroundColor: 'rgba(250,128,114,0.5)',
+                                                            borderColor: 'rgba(250,128,114,1)',
+                                                            borderWidth: 1,
+                                                            data: bpGraph.dystolic
+                                                        },
+                                                    ]
+                                            }
+                                        }
+                                        options={{
+
+                                            legend: {
+                                                display: true,
+                                                position: 'center'
+                                            },
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true,
+                                                    max: 300
+                                                }
+                                            }
+                                        }}
+                                    />
+                                </div>
+                                : <p>Fetching Data</p>}
+                        </div>
                     </div>
                 </div>
             </div>

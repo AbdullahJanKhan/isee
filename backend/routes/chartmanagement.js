@@ -121,6 +121,51 @@ router.get('/bg_graph', authenticate.verifyUser, (req, res) => {
     })
 })
 
+router.get('/bg_graph/:id', authenticate.verifyUser, (req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    BG.find({ patient: req.params.id }, (err, record) => {
+        if (err)
+            res.json({
+                success: false,
+                err: err,
+            })
+        else if (record) {
+            var fasting = []
+            var random = []
+            var fdates = []
+            var rdates = []
+            for (var i = 0; i < record.length; i++) {
+                if (record[i].isFasting) {
+                    fasting.push(record[i].value)
+                    fdates.push(record[i].dateAdded)
+                } else {
+                    random.push(record[i].value)
+                    rdates.push(record[i].dateAdded)
+                }
+            }
+            res.json(
+                {
+                    success: true,
+                    record: {
+                        fdates: fdates,
+                        fasting: fasting,
+                        rdates: rdates,
+                        random: random
+                    }
+                })
+        }
+        else {
+            res.json({
+                success: false,
+                err: 'No Record Found'
+            })
+        }
+
+    })
+})
+
+
 router.get('/bp_graph', authenticate.verifyUser, (req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
@@ -155,5 +200,41 @@ router.get('/bp_graph', authenticate.verifyUser, (req, res) => {
         }
     })
 });
+
+router.get('/bp_graph/:id', authenticate.verifyUser, (req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    BP.find({ patient: req.params.id }, (err, record) => {
+        if (err)
+            res.json({
+                success: false,
+                err: err
+            })
+        else if (record.length > 0) {
+            var dates = []
+            var systolic = []
+            var dystolic = []
+            for (var i = 0; i < record.length; i++) {
+                dates.push(record[i].dateAdded)
+                systolic.push(record[i].systolic)
+                dystolic.push(record[i].dystolic)
+            }
+            res.json({
+                success: true,
+                record: {
+                    dates: dates,
+                    systolic: systolic,
+                    dystolic: dystolic
+                }
+            })
+        } else {
+            res.json({
+                success: false,
+                err: 'No Record Found'
+            })
+        }
+    })
+});
+
 
 module.exports = router;
