@@ -35,27 +35,33 @@ def reshape_data(x):
 @app.route('/classify', methods=['POST'])
 def index():
     if request.method == 'POST':
-        print(request.files['file'])
-        image = request.files['file']
-        image.save(image.filename)
-        # img_path = r'C:\Users\abdul\Desktop\isee-web\dr_model\eye.jpg'
-        # img = Image.open(img_path).resize((256, 256))
-        img = Image.open(image.filename).resize((256, 256))
-        x = np.array(img)
-        print(x.shape)
-        x = reshape_data(x)
-        prediction = model.predict(x)
-        label = prediction.argmax(axis=-1).tolist()
-        print("Model Prediction in numpy form")
-        print(type(label))
-        print(prediction)
-        print(prediction[0][label])
-        os.remove(image.filename)
-        return jsonify({
-            'success': True,
-            'label': label,
-            'accuracy': str(prediction[0][label]),
-        })
+        if 'file' in request.files:
+            print(request.files['file'])
+            image = request.files['file']
+            image.save(image.filename)
+            # img_path = r'C:\Users\abdul\Desktop\isee-web\dr_model\eye.jpg'
+            # img = Image.open(img_path).resize((256, 256))
+            img = Image.open(image.filename).resize((256, 256))
+            x = np.array(img)
+            print(x.shape)
+            x = reshape_data(x)
+            prediction = model.predict(x)
+            label = prediction.argmax(axis=-1).tolist()
+            print("Model Prediction in numpy form")
+            print(type(label))
+            print(prediction)
+            pred = prediction[0][label][0]
+            os.remove(image.filename)
+            return jsonify({
+                'success': True,
+                'label': label,
+                'accuracy': float(pred),
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'message': 'No Image Attached'
+            })
 
 
 if __name__ == '__main__':

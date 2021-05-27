@@ -55,14 +55,33 @@ export default function Home(props) {
             }
         })
             .then((res) => {
-                if (res.data.success)
-                    history.push({
-                        pathname: props.isDoctor ? '/doctor/dr_report' : '/user/dr_report',
-                        state: {
-                            user: user,
-                            token: token
+                console.log(res.data)
+                const data = {
+                    'u_id': user._id,
+                    'scan': fileInput.current.files[0].name,
+                    'prediction': res.data.label[0],
+                    'probability': res.data.accuracy
+                }
+                if (res.data.success) {
+                    axios.post('http://localhost:5000/users/add_new_data', data, {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                            'Authorization': `Bearer ${token}`
                         }
                     })
+                        .then(res => {
+                            if (res.data.success)
+                                history.push({
+                                    pathname: props.isDoctor ? '/doctor/dr_report' : '/user/dr_report',
+                                    state: {
+                                        user: user,
+                                        token: token,
+                                        data: res.data.data
+                                    }
+                                })
+                        })
+                }
             });
 
     }

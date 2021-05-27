@@ -1,6 +1,7 @@
 var express = require('express');
 var multer = require('multer');
 var User = require('../models/user');
+var Dataset = require('../models/dataset')
 var passport = require('passport');
 var authenticate = require('../authenticate');
 var router = express.Router();
@@ -105,5 +106,14 @@ router.get('/get_user/:id', authenticate.verifyUser, (req, res, next) => {
   })
 })
 
+
+router.post('/add_new_data', authenticate.verifyUser, (req, res) => {
+  console.log(req.body)
+  const dataset = new Dataset(req.body)
+  dataset.save((err, data) => {
+    if (err) res.json({ success: false, message: err.name })
+    else res.json({ success: true, data: data })
+  })
+})
 
 module.exports = router;

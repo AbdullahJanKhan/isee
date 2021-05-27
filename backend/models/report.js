@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Report = new Schema({
-    _id: {
+    u_id: {
         type: mongoose.Types.ObjectId,
         ref: 'User'
     },
@@ -10,7 +10,7 @@ var Report = new Schema({
         type: String,
     },
     report: {
-        type: Buffer,
+        type: Object,
     },
     date: {
         type: Date,
