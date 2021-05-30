@@ -40,12 +40,15 @@ export default function Requests() {
                         <hr />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
-                        {requests ? <Card
-                            user={user}
-                            requests={requests[0]}
-                            token={token}
-                            setRequested={setRequests}
-                        />
+                        {requests ? requests.map((request, index) => {
+                            return <Card
+                                user={user}
+                                requests={request}
+                                token={token}
+                                setRequested={setRequests}
+                                key={index}
+                            />
+                        })
 
                             :
                             <p>No Requests Recieved</p>}
