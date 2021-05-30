@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './styles.css'
 import noImg from '../../../asset/no_img.png';
 import axios from 'axios';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import Navbar from '../navbar/Navbar';
 import DocNav from '../navbar/DocNav';
 
@@ -15,8 +15,10 @@ export default function Home(props) {
     const [token, setToken] = useState(null)
 
     const location = useLocation();
+    const history = useHistory()
     React.useEffect(() => {
         if (location.state) {
+            console.log(location.state)
             setUser(location.state.user)
             setToken(location.state.token)
             setName(location.state.user.fname + ' ' + location.state.user.lname)
@@ -28,8 +30,6 @@ export default function Home(props) {
     };
     const handleChange = event => {
         event.preventDefault();
-        console.log(token);
-        console.log(user);
         const data = new FormData();
         data.append('file', fileInput.current.files[0]);
         axios.post('http://localhost:5000/users/upload', data, {
@@ -42,6 +42,48 @@ export default function Home(props) {
             .then((res) => {
                 setScan(res.data)
             });
+    }
+
+    const handleClassifyImage = () => {
+        const data = new FormData();
+        data.append('file', fileInput.current.files[0]);
+        axios.post('http://127.0.0.1:5000/classify', data, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then((res) => {
+                console.log(res.data)
+                const data = {
+                    'u_id': user._id,
+                    'scan': fileInput.current.files[0].name,
+                    'prediction': res.data.label[0],
+                    'probability': res.data.accuracy
+                }
+                if (res.data.success) {
+                    axios.post('http://localhost:5000/users/add_new_data', data, {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                        .then(res => {
+                            if (res.data.success)
+                                history.push({
+                                    pathname: props.isDoctor ? '/doctor/dr_report' : '/user/dr_report',
+                                    state: {
+                                        user: user,
+                                        token: token,
+                                        data: res.data.data
+                                    }
+                                })
+                        })
+                }
+            });
+
     }
 
     return (
@@ -63,7 +105,7 @@ export default function Home(props) {
                                     Upload Image
                             </p>
                                 <input id='scan' type='file' ref={fileInput} accept="image/*" onChange={handleChange} />
-                                <p className='classify'>Classify Disease</p>
+                                <p className='classify' onClick={handleClassifyImage}>Classify Disease</p>
                             </form>
                         </div>
                     </div>

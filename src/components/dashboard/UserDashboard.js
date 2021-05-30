@@ -7,6 +7,7 @@ import Doctor from './pages/searchdoc';
 import Chat from './pages/messages';
 import BP from './pages/bp';
 import BG from './pages/bg';
+import Reports from './pages/viewreport';
 import { UserProfile } from '../login/index';
 function UserDashboard() {
     return (
@@ -47,6 +48,12 @@ function UserDashboard() {
                         <UserProfile isDoctor={false} />
                     </div>
                 </Route>
+                <Route path='/user/dr_report'>
+                    <div>
+                        <Reports />
+                    </div>
+                </Route>
+
             </Switch>
         </div>
     );

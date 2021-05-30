@@ -101,7 +101,7 @@ export default function BG() {
                                     <p hidden={true}>Record Saved</p>
                                 </div>
                                 <div>
-                                    <div className='row'>
+                                    <div className='col'>
                                         <div className='form-group' style={{ padding: '2px' }}>
                                             <input type='number' value={sugar} onChange={(e) => setSugar(e.target.value)} placeholder='Sugar Value' name='reading' />
                                         </div>

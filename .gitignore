@@ -6,6 +6,7 @@
 /.pnp
 .pnp.js
 /git-commands-basic.txt
+/dr_model/*.h5
 
 # testing
 /coverage
