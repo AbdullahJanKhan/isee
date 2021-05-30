@@ -14,8 +14,8 @@ var doctorRouter = require('./routes/doctors');
 var chartRouter = require('./routes/chartmanagement');
 var requestRouter = require('./routes/request');
 var settingsRouter = require('./routes/settings');
-var reportsRouter = require('./routes/report')
-
+var reportsRouter = require('./routes/report');
+var tipsRouter = require('./routes/tips');
 var app = express();
 
 const connection = mongoose.connect('mongodb://localhost:27017/isee', {
@@ -47,6 +47,7 @@ app.use('/chart', chartRouter);
 app.use('/request', requestRouter);
 app.use('/settings', settingsRouter);
 app.use('/report', reportsRouter);
+app.use('/tip', tipsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

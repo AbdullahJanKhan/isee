@@ -149,6 +149,9 @@ export default function Details() {
                                 : <p>Fetching Data</p>}
                         </div>
                         <div>
+                            <p>Blood Pressure Graph</p>
+                        </div>
+                        <div>
                             {bpGraph ?
                                 <div>
                                     <Bar
