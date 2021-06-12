@@ -1,134 +1,168 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './styles.css'
-import noImg from '../../../asset/no_img.png';
-import axios from 'axios';
+import Header from '../navbar/header/header';
+
+import { VscPerson } from "react-icons/vsc"
+import { FaEnvelopeOpenText, FaHeartbeat } from "react-icons/fa"
+import { BsFillDropletFill } from 'react-icons/bs'
+import { BiBarChartSquare } from 'react-icons/bi'
+import { GrUserSettings, GrNotification, GrInfo, GrTest } from 'react-icons/gr'
+
 import { useHistory, useLocation } from 'react-router';
-import Navbar from '../navbar/Navbar';
-import DocNav from '../navbar/DocNav';
+import { IconContext } from 'react-icons/lib';
 
-export default function Home(props) {
+export default function DashboardMain() {
 
-    const [name, setName] = useState('');
-    const fileInput = React.createRef();
-    const [scan, setScan] = useState(null)
-    const [user, setUser] = useState(null)
-    const [token, setToken] = useState(null)
+    const [user, setUser] = React.useState(null);
+    const [token, setToken] = React.useState(null);
 
-    const location = useLocation();
-    const history = useHistory()
+    const location = useLocation()
+    const history = useHistory();
+
     React.useEffect(() => {
         if (location.state) {
-            console.log(location.state)
-            setUser(location.state.user)
-            setToken(location.state.token)
-            setName(location.state.user.fname + ' ' + location.state.user.lname)
+            setUser(location.state.user);
+            setToken(location.state.token);
         }
-    }, [location, user]);
-
-    const handleClick = () => {
-        fileInput.current.click();
-    };
-    const handleChange = event => {
-        event.preventDefault();
-        const data = new FormData();
-        data.append('file', fileInput.current.files[0]);
-        axios.post('http://localhost:5000/users/upload', data, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then((res) => {
-                setScan(res.data)
-            });
-    }
-
-    const handleClassifyImage = () => {
-        const data = new FormData();
-        data.append('file', fileInput.current.files[0]);
-        axios.post('http://127.0.0.1:5000/classify', data, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then((res) => {
-                console.log(res.data)
-                const data = {
-                    'u_id': user._id,
-                    'scan': fileInput.current.files[0].name,
-                    'prediction': res.data.label[0],
-                    'probability': res.data.accuracy
-                }
-                if (res.data.success) {
-                    axios.post('http://localhost:5000/users/add_new_data', data, {
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                            'Authorization': `Bearer ${token}`
-                        }
-                    })
-                        .then(res => {
-                            if (res.data.success)
-                                history.push({
-                                    pathname: props.isDoctor ? '/doctor/dr_report' : '/user/dr_report',
-                                    state: {
-                                        user: user,
-                                        token: token,
-                                        data: res.data.data
-                                    }
-                                })
-                        })
-                }
-            });
-
-    }
+    }, [location])
 
     return (
         <div>
-            <div> {props.isDoctor ? <DocNav token={token} user={user} /> : <Navbar token={token} user={user} />} </div>
-            <div className='avoid_header'>
-                <div className='main_body'>
-                    <div className='container'>
-                        <p>Welcome, {name}!</p>
-                        <hr />
-                    </div>
-                    <div className='container'>
-                        <div className='imageUpload'>
-                            <p>DR CLASSIFIER</p>
-                            <form className='form_img'>
-                                <img src={scan ? `http://localhost:5000/${scan.filename}` : noImg} alt='Eye Scan' className='scan' />
-                                <br />
-                                <p className='classify' onClick={handleClick}>
-                                    Upload Image
-                            </p>
-                                <input id='scan' type='file' ref={fileInput} accept="image/*" onChange={handleChange} />
-                                <p className='classify' onClick={handleClassifyImage}>Classify Disease</p>
-                            </form>
+            <Header noSidebar={true} />
+            <div className='avoid_header' >
+                <IconContext.Provider value={{ size: '32' }}>
+
+                    <div style={{ margin: 'auto', display: 'flex', alignItems: 'center' }}>
+                        <div className='main_body' >
+                            <div>
+                                <p className='section_header'>Welcome, {user ? user.fname + ' ' + user.lname : ''}</p>
+                            </div>
+                            <div>
+                                <p className='section_lable'>Blindness Detection System: </p>
+                            </div>
+                            <div className='main_body_home'>
+                                <div className='box_main_20'
+                                    onClick={() => history.push({
+                                        pathname: '/user/checkdisease',
+                                        state: {
+                                            user: user,
+                                            token: token,
+                                        }
+                                    })}>
+                                    <p>Check Diease</p>
+                                    <GrTest />
+                                </div>
+                                <div className='box_main_20'
+                                    onClick={() => history.push({
+                                        pathname: '/user/searchDoc',
+                                        state: {
+                                            user: user,
+                                            token: token,
+                                        }
+                                    })}>
+                                    <p>Consult A Doctor</p>
+                                    <VscPerson />
+                                </div>
+                                <div className='box_main_20'
+                                    onClick={() => history.push({
+                                        pathname: '/user/reports',
+                                        state: {
+                                            user: user,
+                                            token: token,
+                                        }
+                                    })}>
+                                    <p>View Reports</p>
+                                    <FaEnvelopeOpenText />
+                                </div>
+                                <div className='box_main_20'
+                                    onClick={() => history.push({
+                                        pathname: '/user/messages',
+                                        state: {
+                                            user: user,
+                                            token: token,
+                                        }
+                                    })}>
+                                    <p>View Tips</p>
+                                    <GrInfo />
+                                </div>
+                            </div>
+                            <div>
+                                <p className='section_lable'>Health Management: </p>
+                            </div>
+                            <div className='main_body_home'>
+                                <div className='box_main_20'
+                                    onClick={() => history.push({
+                                        pathname: '/user/managebg',
+                                        state: {
+                                            user: user,
+                                            token: token,
+                                        }
+                                    })}>
+                                    <p>Add Blood Glucose Record</p>
+                                    <BsFillDropletFill />
+                                </div>
+                                <div className='box_main_20'
+                                    onClick={() => history.push({
+                                        pathname: '/user/managebp',
+                                        state: {
+                                            user: user,
+                                            token: token,
+                                        }
+                                    })}>
+                                    <p>Add Blood Pressure Record</p>
+                                    <FaHeartbeat />
+                                </div>
+                                <div className='box_main_20'
+                                    onClick={() => history.push({
+                                        pathname: '/user/graph/bg',
+                                        state: {
+                                            user: user,
+                                            token: token,
+                                        }
+                                    })}>
+                                    <p>View Blood Glucose Graph</p>
+                                    <BiBarChartSquare />
+                                </div>
+                                <div className='box_main_20' onClick={() => history.push({
+                                    pathname: '/user/graph/bp',
+                                    state: {
+                                        user: user,
+                                        token: token,
+                                    }
+                                })}>
+                                    <p>View Blood Pressure Graph</p>
+                                    <BiBarChartSquare />
+                                </div>
+                            </div>
+                            <div>
+                                <p className='section_lable'>Profile Settings: </p>
+                            </div>
+                            <div className='main_body_home'>
+                                <div className='box_main_40' onClick={() => history.push({
+                                    pathname: '/user/profile',
+                                    state: {
+                                        user: user,
+                                        token: token,
+                                    }
+                                })}>
+                                    <p>Update Profile Settings</p>
+                                    <GrUserSettings />
+                                </div>
+                                <div className='box_main_40' onClick={() => history.push({
+                                    pathname: '/user/notification',
+                                    state: {
+                                        user: user,
+                                        token: token,
+                                    }
+                                })}>
+                                    <p>Notifications Settings</p>
+                                    <GrNotification />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </IconContext.Provider>
             </div>
         </div>
-    );
+    )
 }
-
-// Method to add a brearer token to the api call
-// const updateEmail = () => {
-//     axios.patch('http://localhost:5000/users/change_email/' + email, {
-//         headers: {
-//             'Access-Control-Allow-Origin': '*',
-//             'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-//             'Authorization': `Bearer ${token}`
-//         }
-//     })
-//         .then((res) => {
-//             if (res.data.success) {
-//                 alert(JSON.stringify(res.data))
-//             }
-//         })
-//         .catch((err) => console.log(err))
-
-// }

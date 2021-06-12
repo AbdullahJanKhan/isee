@@ -35,8 +35,9 @@ export default function Requests() {
             <div> <DocNav token={token} user={user} /> </div>
             <div className='avoid_header'>
                 <div className='main_body'>
+                    <p className="section_header">Welcome, DR. {user ? user.fname : ''}</p>
                     <div className='container'>
-                        <p>User Requests</p>
+                        <p>Appointment Requests</p>
                         <hr />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
@@ -51,7 +52,7 @@ export default function Requests() {
                         })
 
                             :
-                            <p>No Requests Recieved</p>}
+                            <div><p>No Requests Recieved</p></div>}
                     </div>
 
                 </div>

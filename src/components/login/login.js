@@ -2,56 +2,73 @@ import React from 'react';
 import "./style.css";
 import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
-import Header from '../dashboard/navbar/header/header';
-
 
 export function Login() {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const history = useHistory()
-
+    const check = () => {
+        return email.length > 0 && password.length > 0
+    }
     const handelSubmit = () => {
-        const data = {
-            'username': email,
-            'password': password
-        }
-        axios.post('http://localhost:5000/users/login', data, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        if (check()) {
+            const data = {
+                'username': email,
+                'password': password
             }
-        })
-            .then((res) => {
-                if (res.status === 401) {
-                    alert('Test')
-                }
-                if (res.data.success) {
-                    if (res.data.user.isDoctor)
-                        history.push({
-                            pathname: "/doctor/view_request",
-                            state: {
-                                user: res.data.user,
-                                token: res.data.token
-                            }
-                        })
-                    else
-                        history.push({
-                            pathname: "/user/home",
-                            state: {
-                                user: res.data.user,
-                                token: res.data.token
-                            }
-                        })
-
+            axios.post('http://localhost:5000/users/login', data, {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
                 }
             })
-            .catch(res => alert('Invalid Credentials'))
+                .then((res) => {
+                    if (res.status === 401) {
+                        alert('Test')
+                    }
+                    if (res.data.success) {
+                        if (res.data.user.isDoctor)
+                            history.push({
+                                pathname: "/doctor/home",
+                                state: {
+                                    user: res.data.user,
+                                    token: res.data.token
+                                }
+                            })
+                        else
+                            history.push({
+                                pathname: "/user/home",
+                                state: {
+                                    user: res.data.user,
+                                    token: res.data.token
+                                }
+                            })
+                    }
+                })
+                .catch(res => alert('Invalid Credentials'))
+        }
+        else {
+            alert("Fields Not Filled")
+        }
     }
 
     return (
         <div>
-            <div> <Header noSidebar={true} /> </div>
+            <div>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        backgroundColor: "rgb(40,44,52)",
+                        color: "#fff",
+                    }}>
+                    <p style={{ fontSize: "16px", fontWeight: "600" }}>
+                        ISEE | Blindness Detection System
+                    </p>
+                </div>
+            </div>
             <div className="base-container">
                 <div className="boxlog">
                     <div className="login">

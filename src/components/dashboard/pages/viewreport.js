@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
-
 import ReportTemplate from './reportTemplate';
 import DocNav from '../navbar/DocNav';
 import Navbar from '../navbar/Navbar';
 import { IoArrowBackCircleOutline } from 'react-icons/io5';
 import { AiOutlineSave, AiOutlineDownload } from 'react-icons/ai'
 import axios from "axios";
+
 export default function ViewReports(props) {
     const [user, setUser] = useState(null)
     const [token, setToken] = useState(null)
@@ -77,7 +77,7 @@ export default function ViewReports(props) {
                     }}>Download Report <AiOutlineDownload /></p>
                 </div>
                 <div style={{ width: "683px", height: '1024px', margin: "auto" }}>
-                    <ReportTemplate />
+                    <ReportTemplate user={user} data={data} />
                 </div>
             </div>
         </div>

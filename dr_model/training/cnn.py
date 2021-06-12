@@ -1,3 +1,4 @@
+import random
 from random import random
 import numpy as np
 import pandas as pd
@@ -18,7 +19,6 @@ from sklearn.utils import class_weight
 # cohen_kappa_score
 from keras.models import load_model
 np.random.seed(1337)
-import random
 
 
 class EyeNet:
@@ -30,7 +30,7 @@ class EyeNet:
         self.y_train = None
         self.y_test = None
         self.test_data_size = None
-        self.weights = {0: 0., 1: 0.}
+        self.weights = None
         self.model = None
         self.nb_classes = None
         self.img_rows = 256
@@ -89,12 +89,12 @@ class EyeNet:
 
         self.y_train = np_utils.to_categorical(self.y_train, self.nb_classes)
 
-        self.X_test = self.X_test.reshape(
-            self.X_test.shape[0], img_rows, img_cols, channels)
-        self.X_test = self.X_test.astype("float32")
-        self.X_test /= 255
+        # self.X_test = self.X_test.reshape(
+        #     self.X_test.shape[0], img_rows, img_cols, channels)
+        # self.X_test = self.X_test.astype("float32")
+        # self.X_test /= 255
 
-        self.y_test = np_utils.to_categorical(self.y_test, self.nb_classes)
+        # self.y_test = np_utils.to_categorical(self.y_test, self.nb_classes)
 
         print("X_train Shape: ", self.X_train.shape)
         print("X_test Shape: ", self.X_test.shape)
@@ -104,7 +104,6 @@ class EyeNet:
     def cnn_model(self, nb_filters, kernel_size, batch_size, nb_epoch):
         """
         Define and run the convolutional neural network
-
 
         """
 
@@ -157,6 +156,7 @@ class EyeNet:
         Rertrains the already trained model with new data
         INPUT:
             model ,batch_size and epoch
+            filename with complete path of the trained model 
         OUTPUT:
             retained model
         """
@@ -188,7 +188,7 @@ class EyeNet:
         predictions = np.argmax(predictions, axis=1)
 
         # predictions[predictions >=1] = 1
-        # # Remove when non binary classifier
+        # Remove when non binary classifier
 
         self.y_test = np.argmax(self.y_test, axis=1)
 
@@ -196,7 +196,6 @@ class EyeNet:
         recall = recall_score(self.y_test, predictions, average="micro")
         f1 = f1_score(self.y_test, predictions, average="micro")
         cohen_kappa = cohen_kappa_score(self.y_test, predictions)
-        # quad_kappa = kappa(self.y_test, predictions, weights='quadratic') t
         return precision, recall, f1, cohen_kappa, 'No Cuda Training'
 
     def save_model(self, score, model_name):
@@ -210,7 +209,7 @@ class EyeNet:
         OUTPUT
             Saved model, based on scoring criteria input.
         """
-        if score >= 0.25:
+        if score >= 0.5:
             print("Saving Model")
             self.model.save("./models/" + model_name)
         else:

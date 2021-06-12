@@ -4,15 +4,6 @@ import pandas as pd
 
 
 def get_lst_images(file_path):
-    """
-    Reads in all files from file path into a list.
-
-    INPUT
-        file_path: specified file path containing the images.
-
-    OUTPUT
-        List of image strings
-    """
     return [i for i in os.listdir(file_path) if i != '.DS_Store']
 
 

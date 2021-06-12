@@ -4,6 +4,12 @@ import * as GrIcons from 'react-icons/gr'
 
 export const DocbarData = [
     {
+        title: 'Home',
+        path: '/doctor/home',
+        icon: <AiIcons.AiFillHome />,
+        cName: 'nav-text'
+    },
+    {
         title: 'Request',
         path: '/doctor/view_request',
         icon: <AiIcons.AiOutlineUsergroupAdd />,

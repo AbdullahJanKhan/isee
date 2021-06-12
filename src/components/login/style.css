@@ -167,8 +167,8 @@ input:focus {
 }
 
 .boxreg {
-    margin: 100px auto;
-    max-width: 645px;
+    margin: 30px auto;
+    max-width: auto;
     background: white;
     padding: 30px;
     text-align: center;
@@ -178,7 +178,7 @@ input:focus {
 }
 
 .boxlog {
-    margin: 100px auto;
+    margin: 30px auto;
     max-width: auto;
     background: white;
     padding: 30px;

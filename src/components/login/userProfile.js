@@ -188,7 +188,7 @@ export function UserProfile(props) {
                                         type="date"
                                         name="Dob"
                                         style={{ color: "rgba(128,128,128, 1.0)" }}
-                                        value={dob}
+                                        value={dob.slice(0,10)}
                                         onChange={data => setdob(data.target.value)}
                                     />
                                 </div>

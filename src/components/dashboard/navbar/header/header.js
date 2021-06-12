@@ -2,8 +2,10 @@ import React from "react";
 import "./header.css";
 import * as FaIcons from 'react-icons/fa';
 import * as RiIcons from 'react-icons/ri';
+import { useHistory } from "react-router";
 
 function Header(props) {
+    const history = useHistory();
     const withSidebar = (
         <div className='header_main'>
             <div className='header'>
@@ -20,6 +22,18 @@ function Header(props) {
         <div className='header_main'>
             <div className='header'>
                 <p className='title'>ISEE | DR CLASSIFIER</p>
+            </div>
+            <div>
+                <p style={{
+                    border: '1px solid #fff',
+                    cursor: 'pointer',
+                    color: '#fff',
+                    fontWeight: '600',
+                    padding: '10px',
+                    fontSize: '20px',
+                    borderRadius: '15px',
+                    marginRight: '10px'
+                }} onClick={() => history.push('/')}>Logout</p>
             </div>
         </div>
     )

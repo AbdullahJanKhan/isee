@@ -16,7 +16,7 @@ export default function Doctor() {
         if (location.state) {
             setUser(location.state.user)
             setToken(location.state.token)
-            console.log(location.state.user)
+            console.log(location.state)
             axios.get('http://localhost:5000/doctor/get_doc', {
                 headers: {
                     'Access-Control-Allow-Origin': '*',

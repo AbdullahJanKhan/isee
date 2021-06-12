@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-// import Report from "./components/dashboard/pages/reportTemplate" 
+// import Test from "./components/dashboard/pages/home"
 import Main from './components/dashboard/main'
 function App() {
   return (

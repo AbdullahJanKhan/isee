@@ -1,5 +1,5 @@
 .avoid_header {
-    padding: 90px 0px 10px 0px;
+    padding: 120px 0px 10px 0px;
 }
 
 .main_body {
@@ -169,4 +169,47 @@ input[type='file'] {
     font-size: 16px;
     margin: auto;
     margin-bottom: 10px;
+}
+
+.box_main_20 {
+    width: 20%;
+    border: 1px solid #616773;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+    margin: auto;
+    cursor: pointer;
+}
+
+.box_main_40 {
+    width: 40%;
+    border: 1px solid #616773;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+    margin: auto;
+    cursor: pointer;
+}
+
+.main_body_home {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.section_lable {
+    font-size: 24px;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.section_header {
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
 }

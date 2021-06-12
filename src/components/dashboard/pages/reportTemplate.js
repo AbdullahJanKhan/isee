@@ -1,6 +1,20 @@
 import React from "react";
-import scan from "../../../asset/10_left.jpeg";
-export default function Report() {
+
+export default function Report(props) {
+  const [user, setUser] = React.useState(null)
+  const [data, setData] = React.useState(null)
+  var date = new Date(Date.now()).toISOString()
+  date = date.slice(0, 10) + ' @ ' + date.slice(11, date.length - 1)
+
+  React.useEffect(() => {
+    console.log(props)
+    if (props.user) {
+      setUser(props.user)
+    }
+    if (props.data) {
+      setData(props.data)
+    }
+  }, [props])
   return (
     <div>
       <div
@@ -48,26 +62,26 @@ export default function Report() {
             padding: "10px",
           }}
         >
-          <div style={{ marginRight: "-10%" }}>
+          <div >
             <p>
-              <strong>Patient ID:</strong> 12345678
+              <strong>Patient ID:</strong> {user ? user._id : ''}
             </p>
             <p>
-              <strong>Report ID:</strong> 87654321
+              <strong>Report ID:</strong> {data ? data._id : ''}
             </p>
             <p>
-              <strong>Submission Date:</strong> 5/24/2021 11:32
+              <strong>Submission Date:</strong> {date}
             </p>
           </div>
           <div>
             <p>
-              <strong>Patient Name:</strong> Abdullah Jan Khan
+              <strong>Patient Name:</strong> {user ? user.fname + ' ' + user.lname : ''}
             </p>
             <p>
-              <strong>Date Of Birth:</strong> 13-07-1998
+              <strong>Date Of Birth:</strong> {user ? user.dob.slice(0, 10) : ''}
             </p>
             <p>
-              <strong>Gender:</strong> Male
+              <strong>Gender:</strong> {user ? user.gender : ''}
             </p>
           </div>
         </div>
@@ -123,44 +137,13 @@ export default function Report() {
                   marginRight: "5px",
                 }}
               >
-                Right Eye Scan:
+                Patient Eye Scan:
               </span>
               <br />
               <span>No apparent signs of DR detected [0.0]</span>
             </p>
             <img
-              src={scan}
-              alt="Eye Scan"
-              style={{
-                width: "128px",
-                height: "128px",
-                objectFit: "cover",
-                borderRadius: "50%",
-              }}
-            />
-          </div>
-          <div
-            style={{
-              padding: "0px 10px 0px 10px",
-              color: "#282c34",
-            }}
-          >
-            <p>
-              <span
-                style={{
-                  fontSize: "16px",
-                  fontWeight: "500",
-                  marginLeft: "5px",
-                  marginRight: "5px",
-                }}
-              >
-                Left Eye Scan:
-              </span>
-              <br />
-              <span>No apparent signs of DR detected [0.0]</span>
-            </p>
-            <img
-              src={scan}
+              src={data ? `http://localhost:5000/images/${data.scan}` : ''}
               alt="Eye Scan"
               style={{
                 width: "128px",

@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 
 model = load_model(
-    r'C:\Users\H.A.R\Desktop\isee\dr_model\DR_14.h5', compile=True)
+    r'C:\Users\abdul\Desktop\isee-web\dr_model\DR_14.h5', compile=True)
 
 
 def reshape_data(x):

@@ -5,7 +5,6 @@ import * as AiIcons from 'react-icons/ai'
 import Navbar from '../navbar/Navbar';
 import { useLocation } from 'react-router';
 import axios from 'axios';
-import { Bar } from 'react-chartjs-2';
 
 export default function BG() {
     const [user, setUser] = useState(null)
@@ -15,7 +14,6 @@ export default function BG() {
     const [time, setTime] = useState(true)
     const [record, setRecord] = useState(null)
     const [check, setCheck] = useState(false)
-    const [graph, setGraph] = useState(null)
 
     const location = useLocation();
     React.useEffect(() => {
@@ -34,19 +32,6 @@ export default function BG() {
                 .then(res => {
                     if (res.data.success) {
                         setRecord(res.data.record)
-                    }
-                })
-            axios.get('http://localhost:5000/chart/bg_graph', {
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                    'Authorization': `Bearer ${t}`
-                }
-            })
-                .then(res => {
-                    if (res.data.success) {
-                        setGraph(res.data.record)
-                        console.log(res.data)
                     }
                 })
 
@@ -146,81 +131,6 @@ export default function BG() {
                                 </div>
                                 : <p></p>}
                         </div>
-                    </div>
-                    <hr />
-                    <div>
-                        {graph ?
-                            <div>
-                                <Bar
-                                    data={
-                                        {
-                                            labels: graph.fdates,
-                                            datasets:
-                                                [
-                                                    {
-                                                        label: 'Blood Sugar Fasting',
-                                                        backgroundColor: 'rgba(75,192,192,1)',
-                                                        borderColor: 'rgba(0,0,0,1)',
-                                                        borderWidth: 1,
-                                                        data: graph.fasting
-                                                    },
-                                                ]
-                                        }
-                                    }
-                                    options={{
-                                        title: {
-                                            display: true,
-                                            text: 'Average Rainfall per month',
-                                            fontSize: 16
-                                        },
-                                        legend: {
-                                            display: true,
-                                            position: 'center'
-                                        },
-                                        scales: {
-                                            y: {
-                                                beginAtZero: true,
-                                                max: 300
-                                            }
-                                        }
-                                    }}
-                                />
-                                <Bar
-                                    data={
-                                        {
-                                            labels: graph.rdates,
-                                            datasets:
-                                                [
-                                                    {
-                                                        label: 'Blood Sugar Random',
-                                                        backgroundColor: 'rgba(75,192,192,1)',
-                                                        borderColor: 'rgba(0,0,0,1)',
-                                                        borderWidth: 1,
-                                                        data: graph.random
-                                                    },
-                                                ]
-                                        }
-                                    }
-                                    options={{
-                                        title: {
-                                            display: true,
-                                            text: 'Average Rainfall per month',
-                                            fontSize: 16
-                                        },
-                                        legend: {
-                                            display: true,
-                                            position: 'right'
-                                        },
-                                        scales: {
-                                            y: {
-                                                beginAtZero: true,
-                                                max: 300
-                                            }
-                                        }
-                                    }}
-                                />
-                            </div>
-                            : <p>Fetching Data</p>}
                     </div>
                 </div>
             </div>

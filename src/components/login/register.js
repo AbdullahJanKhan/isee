@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import "./style.css";
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import Header from '../dashboard/navbar/header/header';
 
 export function Register() {
     const [fname, setFname] = useState('');
@@ -15,41 +14,52 @@ export function Register() {
     const [occupation, setOccupation] = useState('');
     const history = useHistory();
 
+    const check = () => {
+        return lname.length > 0 && fname.length > 0 && email.length > 0 && date.length > 0
+            && password.length > 0 && cnfpassword.length > 0 && gender.length > 0 && occupation.length > 0
+    }
+
     const handelSubmit = () => {
-        if (password !== cnfpassword) {
-            alert('Password Not Macthing');
-            return;
-        }
-        const isDoctor = occupation === 'doctor'
-        const data = {
-            'fname': fname,
-            'lname': lname,
-            'username': email,
-            'password': password,
-            'dob': date,
-            'gender': gender,
-            'isDoctor': isDoctor
-        }
-        axios.post('http://localhost:5000/users/register', data, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        if (check()) {
+            if (password !== cnfpassword) {
+                alert('Password Not Macthing');
+                return;
             }
-        })
-            .then((res) => {
-                if (res.data.success && isDoctor) {
-                    history.push({
-                        pathname: "/add_pmdcid",
-                        state: {
-                            id: res.data.id
-                        }
-                    });
-                } else if (res.data.success) {
-                    history.push('/login');
-                } else {
-                    reset();
+            const isDoctor = occupation === 'doctor'
+            const data = {
+                'fname': fname,
+                'lname': lname,
+                'username': email,
+                'password': password,
+                'dob': date,
+                'gender': gender,
+                'isDoctor': isDoctor
+            }
+            axios.post('http://localhost:5000/users/register', data, {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
                 }
-            });
+            })
+                .then((res) => {
+                    if (res.data.success && isDoctor) {
+                        history.push({
+                            pathname: "/add_pmdcid",
+                            state: {
+                                id: res.data.id
+                            }
+                        });
+                    } else if (res.data.success) {
+                        history.push('/login');
+                    } else {
+                        reset();
+                    }
+                })
+                .catch(err => alert('User Cannot Be Registered ' + err.name))
+        }
+        else {
+            alert('Fields Not Filled')
+        }
     }
 
     const reset = () => {
@@ -65,7 +75,18 @@ export function Register() {
 
     return (
         <div>
-            <div> <Header noSidebar={true} /> </div>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    backgroundColor: "rgb(40,44,52)",
+                    color: "#fff",
+                }}>
+                <p style={{ fontSize: "16px", fontWeight: "600" }}>
+                    ISEE | Blindness Detection System
+                </p>
+            </div>
             <div className="base-container">
                 <div className="boxreg">
                     <div className="Register">

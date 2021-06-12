@@ -2,13 +2,20 @@ import React from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
-import * as BsIcon from 'react-icons/bs'
+import * as BsIcon from 'react-icons/bs';
+import { GrTest } from 'react-icons/gr'
 
 export const SidebarData = [
     {
         title: 'Home',
         path: '/user/home',
         icon: <AiIcons.AiFillHome />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Check Disease',
+        path: '/user/checkdisease',
+        icon: <GrTest />,
         cName: 'nav-text'
     },
     {
