@@ -116,4 +116,24 @@ router.post('/add_new_data', authenticate.verifyUser, (req, res) => {
   })
 })
 
+const storage_pp = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public')
+  },
+  filename: (req, file, cb) => {
+    cb(null, 'images/' + req.user._id + "." + file.mimetype.split('/')[1])
+  }
+})
+
+const upload_pp = multer({ storage: storage_pp }).single('file')
+
+router.post("/uploadprofilepicture", authenticate.verifyUser, (req, res) => {
+  upload_pp(req, res, (err) => {
+    if (err) {
+      res.sendStatus(500);
+    }
+    res.send(req.file);
+  });
+})
+
 module.exports = router;

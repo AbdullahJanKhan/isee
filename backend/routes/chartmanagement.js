@@ -94,7 +94,7 @@ router.get('/bg_graph', authenticate.verifyUser, (req, res) => {
             for (var i = 0; i < record.length; i++) {
                 if (record[i].isFasting) {
                     fasting.push(record[i].value)
-                    fdates.push(record[i].dateAdded)
+                    fdates.push(record[i].dateAdded.getDay())
                 } else {
                     random.push(record[i].value)
                     rdates.push(record[i].dateAdded)
@@ -138,7 +138,7 @@ router.get('/bg_graph/:id', authenticate.verifyUser, (req, res) => {
             for (var i = 0; i < record.length; i++) {
                 if (record[i].isFasting) {
                     fasting.push(record[i].value)
-                    fdates.push(record[i].dateAdded)
+                    fdates.push(record[i].dateAdded.getDay())
                 } else {
                     random.push(record[i].value)
                     rdates.push(record[i].dateAdded)
@@ -180,7 +180,7 @@ router.get('/bp_graph', authenticate.verifyUser, (req, res) => {
             var systolic = []
             var dystolic = []
             for (var i = 0; i < record.length; i++) {
-                dates.push(record[i].dateAdded)
+                dates.push(record[i].dateAdded.getDay())
                 systolic.push(record[i].systolic)
                 dystolic.push(record[i].dystolic)
             }
@@ -215,7 +215,7 @@ router.get('/bp_graph/:id', authenticate.verifyUser, (req, res) => {
             var systolic = []
             var dystolic = []
             for (var i = 0; i < record.length; i++) {
-                dates.push(record[i].dateAdded)
+                dates.push(record[i].dateAdded.getDay())
                 systolic.push(record[i].systolic)
                 dystolic.push(record[i].dystolic)
             }
