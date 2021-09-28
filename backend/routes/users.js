@@ -116,4 +116,16 @@ router.post('/add_new_data', authenticate.verifyUser, (req, res) => {
   })
 })
 
+router.post("/upload_profile_picture", authenticate.verifyUser, (req, res, next) => {
+  upload(req, res, (err) => {
+    if (err) {
+      res.json({
+        err: err.name,
+        success: false,
+      });
+    }
+    res.send(req.file);
+  });
+})
+
 module.exports = router;
