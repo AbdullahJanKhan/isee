@@ -42,10 +42,10 @@ router.post('/register', (req, res, next) => {
         res.setHeader('Content-Type', 'application/json');
         res.json({ success: false });
       } else {
-        if (req.body.fname)
-          user.fname = req.body.fname;
-        if (req.body.lname)
-          user.lname = req.body.lname;
+        if (req.body.firstname)
+          user.fname = req.body.firstname;
+        if (req.body.lastname)
+          user.lname = req.body.lastname;
         if (req.body.dob)
           user.dob = req.body.dob;
         if (req.body.gender)

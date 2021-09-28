@@ -11,8 +11,10 @@ var Doctor = new Schema({
     },
     isVerified: {
         type: Boolean,
-        default: false,
     },
+    specialization: {
+        type: String
+    }
 });
 
 module.exports = mongoose.model('Doctor', Doctor);

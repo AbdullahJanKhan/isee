@@ -23,6 +23,8 @@ router.post('/is_doctor', (req, res) => {
             const doctor = new Doctor({
                 userid: _id,
                 pmdcid: req.body.pmdcid,
+                specialization: req.body.specialization,
+                isVerified: res.body.isVerified,
             });
             doctor.save((err, doc) => {
                 if (err) {
